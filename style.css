@@ -1,7 +1,6 @@
 html,body{
     height:100%;
     background-color: rgb(255, 242, 224);
-    color: #4a2e10;
 }
 body {
     padding-top: 59px;
@@ -69,4 +68,22 @@ body {
 
 .breadcrumb-item a {
     color: #4a2e10;
+}
+
+.h3 {
+    color: #4a2e10;
+    font-weight: 900;
+}
+
+#floatingPasswordSI,
+#floatingPasswordR {
+    margin-top: 10px;
+}
+
+#accRegister {
+    margin-top: 39px;
+}
+
+.login {
+    border-right: 2px solid #e0c5a7;
 }
