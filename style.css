@@ -5,6 +5,32 @@ html,body{
 body {
     padding-top: 59px;
 }
+
+.dropdown-menu li {
+    position: relative;
+}
+.dropdown-menu .dropdown-submenu {
+    display: none;
+    position: absolute;
+    left: 100%;
+    top: -7px;
+    background-color: #343a40;
+}
+
+.dropdown-menu .dropdown-submenu li a {
+    color: #d4d7d9;
+}
+.dropdown-menu .dropdown-submenu li a:hover {
+    background-color: #52575c;
+}
+.dropdown-menu .dropdown-submenu-left {
+    right: 100%;
+    left: auto;
+}
+.dropdown-menu > li:hover > .dropdown-submenu {
+    display: block;
+}
+
 .carousel,.carousel-item,
 .active{
     height:100%;
