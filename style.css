@@ -113,3 +113,12 @@ body {
 .login {
     border-right: 2px solid #e0c5a7;
 }
+
+@media (max-width: 576px) {
+    .form-register {
+        padding-top: 30px;
+    }
+    #accRegister {
+        margin-top: 10px;
+    }
+}
