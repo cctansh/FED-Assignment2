@@ -87,6 +87,29 @@ body {
     height: 160px;
 }
 
+.productDetailContent {
+    border: 2px solid grey;
+    border-bottom: 0;
+    padding: 28px;
+}
+
+.selector {
+    display: flex;
+    flex-direction: row;
+    gap: 8px;
+    margin-bottom: 4px;
+}
+
+.selector img {
+    width: 38px;
+    height: 38px;
+}
+
+.btn-add {
+    border-radius: 0;
+    width: 100%;
+}
+
 /* maybe relevant later??
 .btn-primary {
     color: #4a2e10;
