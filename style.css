@@ -72,6 +72,21 @@ body {
     height: 300px;
 }
 
+.sideimg {
+    display: flex;
+    flex-direction: column;
+}
+
+#mainimg {
+    width: 100%;
+    height: 480px;
+}
+
+.sideimg img {
+    width: 100%;
+    height: 160px;
+}
+
 /* maybe relevant later??
 .btn-primary {
     color: #4a2e10;
