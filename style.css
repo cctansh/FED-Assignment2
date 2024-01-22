@@ -1,6 +1,5 @@
 html,body{
     height:100%;
-    background-color: rgb(255, 242, 224);
 }
 body {
     padding-top: 59px;
@@ -51,6 +50,29 @@ body {
     background: url(img/bg3.png) no-repeat center center fixed; 
 }
 
+.breadcrumb {
+    margin-top:20px;
+    margin-left: 20px;
+}
+
+.breadcrumb-item a {
+    color: #5c7fbf;
+}
+
+#productHeader {
+    border-bottom: 2px solid rgb(169, 169, 169);
+}
+
+#productContent {
+    margin-top: 16px;
+}
+
+.productImg {
+    width: 100%;
+    height: 300px;
+}
+
+/* maybe relevant later??
 .btn-primary {
     color: #4a2e10;
     background-color: rgb(255, 251, 241);
@@ -85,40 +107,4 @@ body {
 .form-control:focus {
     border-color: rgba(161, 142, 113);
     box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(161, 142, 113, 0.6);
-}
-
-.breadcrumb {
-    margin-top:20px;
-    margin-left: 20px;
-}
-
-.breadcrumb-item a {
-    color: #4a2e10;
-}
-
-.h3 {
-    color: #4a2e10;
-    font-weight: 900;
-}
-
-#floatingPasswordSI,
-#floatingPasswordR {
-    margin-top: 10px;
-}
-
-#accRegister {
-    margin-top: 39px;
-}
-
-.login {
-    border-right: 2px solid #e0c5a7;
-}
-
-@media (max-width: 576px) {
-    .form-register {
-        padding-top: 30px;
-    }
-    #accRegister {
-        margin-top: 10px;
-    }
 }
