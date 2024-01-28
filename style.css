@@ -50,6 +50,7 @@ h1 {
     display: flex;
     flex-direction: row;
     gap: 16px;
+    align-items: center;
 }
 
 #productContent {
@@ -84,13 +85,9 @@ h1 {
     width:150px;
 }
 
-label {
-    margin-top: 6px;
-}
-
 i{
     cursor: pointer;
-    transition: opacity .5s ease;
+    transition: all .2s ease;
     color: gray;
 }
 
@@ -113,17 +110,70 @@ i:hover {
 
 .cartArea {
     width: 100%;
-    height: 450px;
+    min-height: 450px;
+    height: auto;
     border: 2px solid grey;
     position: relative;
+    padding-bottom: 68px;
 }
 
 .checkoutArea {
-    position: absolute;
-    bottom: 0;
     width: 100%;
     height: 68px;
     border-top: 1.4px solid grey;
+    display: flex;
+    flex-direction: row;
+    justify-content: end;
+    align-items: center;
+    gap: 3.5%;
+    position: absolute;
+    bottom: 0;
+}
+
+.total {
+    font-weight: bold;
+    font-size: 24px;
+}
+.checkoutBtn {
+    padding-left: 24px;
+    padding-right: 24px;
+    height: 100%;
+    border-radius: 0;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.cartItems {
+    padding: 12px;
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.cartItem {
+    position: relative;
+}
+
+.trash {
+    position: absolute;
+    top: 8px;
+    right: 12px;
+    color: white;
+}
+
+.cartTitle {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 4px;
+}
+
+.clearCart {
+    font-size: 20px;
+    height: 48px;
 }
 
 /*
