@@ -26,19 +26,28 @@ let shopitemsData = [{
     category:"bracelet"
 }]
 
+let basket = [];
+for (var i = 0; i < shopitemsData.length; i++) {
+    basket.push({
+        id: shopitemsData[i].id,
+        item: 0
+    })
+}
+
+
 let generateShop =(data)=>{
     return (shop.innerHTML= data.map((x)=>{
         return `
-        <div class="col-12 col-md-6 col-lg-4 item ${x.category}">
+        <div id=product-id-${x.id} class="col-12 col-md-6 col-lg-4 item ${x.category}">
         <img width="90%" height="300px" src="${x.img}">
         <div class="details">
             <h3 class="pName">${x.name}</h3>
             <div class="price-quantity">
             <h4 class="pPrice">$${x.price}</h4>
             <div class="quantity-buttons">
-                <i class="bi bi-dash-lg"></i>
-                <div class="quantity">0</div>
-                <i class="bi bi-plus-lg"></i>
+                <i onclick="decrement(${x.id})" class="bi bi-dash-lg"></i>
+                <div id=${x.id} class="quantity">${basket.find(y => y.id == x.id).item}</div>
+                <i onclick="increment(${x.id})" class="bi bi-plus-lg"></i>
             </div>
             </div>
         </div>
@@ -106,6 +115,32 @@ function CheckFilter() {
     }
 }
 
-Default();
-
 var f = 'all';
+generateShop(shopitemsData);
+console.log(basket)
+
+let increment = (id) => {
+    let search = basket.find(x => x.id == id);
+    search.item += 1;
+
+    console.log(basket);
+    update(id);
+}
+
+let decrement = (id) => {
+    let search = basket.find(x => x.id == id);
+
+    if(search.item === 0) {
+        return;
+    }
+    else {
+        search.item -= 1;
+    }
+    console.log(basket);
+    update(id);
+};
+
+let update = (id) => {
+    let search = basket.find(x => x.id == id);
+    document.getElementById(id).innerHTML = search.item;
+};
