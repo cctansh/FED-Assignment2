@@ -28,6 +28,10 @@ let shopitemsData = [{
 
 let basket = JSON.parse(localStorage.getItem("data")) || [];
 
+var f = 'all';
+generateShop(shopitemsData);
+console.log(basket)
+
 function generateShop(a) {
     return (shop.innerHTML= a.map((x)=>{
         let search = basket.find(y => y.id == x.id) || [];
@@ -39,9 +43,9 @@ function generateShop(a) {
             <div class="price-quantity">
             <h4 class="pPrice">$${x.price}</h4>
             <div class="quantity-buttons">
-                <i onclick="decrement(${x.id})" class="bi bi-dash-lg"></i>
+                <i id=minus-${x.id} onclick="decrement(${x.id})" class="bi bi-dash-lg"></i>
                 <div id=${x.id} class="quantity">${search.item === undefined? 0: search.item}</div>
-                <i onclick="increment(${x.id})" class="bi bi-plus-lg"></i>
+                <i id=plus-${x.id} onclick="increment(${x.id})" class="bi bi-plus-lg"></i>
             </div>
             </div>
         </div>
@@ -109,11 +113,14 @@ function CheckFilter() {
     }
 }
 
-var f = 'all';
-generateShop(shopitemsData);
-console.log(basket)
-
 function increment(id) {
+    var darken = document.getElementById(`plus-${id}`);
+    darken.classList.add('dark');
+  
+    setTimeout(function(){
+        darken.classList.remove('dark');
+    }, 200);
+
     let search = basket.find(x => x.id == id);
 
     if (search === undefined) {
@@ -125,28 +132,44 @@ function increment(id) {
         search.item += 1;
     }
 
-    localStorage.setItem("data", JSON.stringify(basket));
-
     update(id);
+
+    localStorage.setItem("data", JSON.stringify(basket));
 }
 
 function decrement(id) {
+    var darken = document.getElementById(`minus-${id}`);
+    darken.classList.add('dark');
+  
+    setTimeout(function(){
+        darken.classList.remove('dark');
+    }, 200);
+
     let search = basket.find(x => x.id == id);
 
-    if(search.item === 0) {
+    if(search === undefined || search.item === 0) {
         return;
     } else {
         search.item -= 1;
     }
+    update(id);
+
+    basket = basket.filter((x)=>x.item !== 0);
 
     localStorage.setItem("data", JSON.stringify(basket));
-
-    update(id);
 };
 
 function update(id) {
     let search = basket.find(x => x.id == id);
-    document.getElementById(id).innerHTML = search.item;
+
+    var amt = document.getElementById(id); 
+
+    amt.classList.add('fade');
+  
+    setTimeout(function(){
+        amt.innerHTML = search.item;
+        amt.classList.remove('fade');
+    }, 180);
 
     console.log(basket)
 };
