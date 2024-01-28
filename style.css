@@ -1,17 +1,12 @@
 html,body{
     height:100%;
 }
-body {
-    padding-top: 59px;
-}
 
-.carousel,.carousel-item,
+.carousel,.carousel-item,.carousel-inner,
 .active{
     height:100%;
 }
-.carousel-inner{
-    height:100%;
-}
+
 .carousel-item {
     background-size: cover;
 }
@@ -80,6 +75,18 @@ body {
 
 .hidden {
     display: none !important;
+}
+
+#cat {
+    width: 130px;
+}
+
+#sort {
+    width:150px;
+}
+
+label {
+    margin-top: 6px;
 }
 
 /*
