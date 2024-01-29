@@ -18,6 +18,7 @@ fetch(apiUrl, {
 
         for (var i = 0; i < response.length; i++) {
             products.push({
+                apiID: response[i]._id,
                 id: response[i].id,
                 name: response[i].name,
                 price: response[i].price,
@@ -26,18 +27,15 @@ fetch(apiUrl, {
                 item: response[i].item,
             })
         }
-
-        generateShop();
+        generateShop(products);
 })
     .catch(error => {
       console.error('Error:', error);
 });
 
-function generateShop() {
-    var content = ""
-    for (var i = 0; i < products.length; i++) {
-        let x = products[i];
-        content += `
+function generateShop(a) {
+    return (shop.innerHTML= a.map((x)=>{
+        return `
         <div id=product-id-${x.id} class="col-12 col-md-6 col-lg-4 item ${x.category}">
         <img width="90%" height="300px" src="${x.img}">
         <div class="details">
@@ -53,8 +51,7 @@ function generateShop() {
         </div>
         </div>
         `;
-    }
-    return (shop.innerHTML= content);
+    }).join(""));
 }
 
 function Default() {
@@ -117,42 +114,42 @@ function CheckFilter() {
 }
 
 function increment(id) {
-    var darken = document.getElementById(`plus-${id}`);
+    let selectedItem = id;
+    var darken = document.getElementById(`plus-${selectedItem.id}`);
     darken.classList.add('dark');
   
     setTimeout(function(){
         darken.classList.remove('dark');
     }, 200);
 
-    let search = products.find(x => x.id == id);
+    let search = products.find(x => x.id == selectedItem.id);
 
     search.item += 1;
     
+    update(selectedItem.id);
 
-    update(id);
-    localStorage.setItem("data", JSON.stringify(products));
-
-
+    patchAPI(selectedItem.id);
 }
 
 function decrement(id) {
-    var darken = document.getElementById(`minus-${id}`);
+    let selectedItem = id;
+    var darken = document.getElementById(`minus-${selectedItem.id}`);
     darken.classList.add('dark');
   
     setTimeout(function(){
         darken.classList.remove('dark');
     }, 200);
 
-    let search = products.find(x => x.id == id);
+    let search = products.find(x => x.id == selectedItem.id);
 
     if(search.item === 0) {
         return;
     } else {
         search.item -= 1;
     }
-    update(id);
+    update(selectedItem.id);
 
-    localStorage.setItem("data", JSON.stringify(products));
+    patchAPI(selectedItem.id);
     
 };
 
@@ -168,6 +165,29 @@ function update(id) {
         amt.classList.remove('fade');
     }, 180);
 
-    console.log(products)
+
 };
 
+function patchAPI(id) {
+    console.log(products);
+
+    let search = products.find(x => x.id == id)
+
+    var settings = {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+          "x-apikey": apiKey,
+          "Cache-Control": "no-cache"
+        },
+        body: JSON.stringify(search)
+      }
+  
+      fetch(`${apiUrl}/${search.apiID}`, settings)
+        .then(response => response.json())
+        .then(data => {
+          console.log(data);
+        });
+}
+
+    
