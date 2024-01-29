@@ -36,12 +36,10 @@ fetch(apiUrl, {
 function generateCartItems() {
     let hasItems = false;
     var content = ""
-    var totalPrice = 0
 
     cartArray.forEach(obj => {
         if (obj.item > 0) {
             hasItems = true;
-            totalPrice += obj.price * obj.item;
             content = `
             ${content}
             <div id=product-id-${obj.id} class="cartItem text-center">
@@ -50,7 +48,7 @@ function generateCartItems() {
                 <div class="details">
                     <h3 class="pName">${obj.name}</h3>
                     <div class="price-quantity">
-                        <h4 class="pPrice">$${(obj.price * obj.item).toFixed(2)}</h4>
+                        <h4 id="pPrice" class="pPrice">$${(obj.price * obj.item).toFixed(2)}</h4>
                         <div class="quantity-buttons">
                             <i id=minus-${obj.id} onclick="decrement(${obj.id})" class="bi bi-dash-lg"></i>
                             <div id=${obj.id} class="quantity">${obj.item}</div>
@@ -64,7 +62,7 @@ function generateCartItems() {
 
     if (hasItems) {
         shoppingCart.innerHTML = content;
-        total.innerHTML = `TOTAL: $${totalPrice.toFixed(2)}`
+        totalPrice();
     } else {
         shoppingCart.innerHTML = `
         <div class="empty">
@@ -90,8 +88,7 @@ function increment(id) {
     search.item += 1;
     
     update(selectedItem.id);
-    generateCartItems();
-
+    generateCartItems()
     patchAPI(selectedItem.id);
 }
 
@@ -112,12 +109,9 @@ function decrement(id) {
         search.item -= 1;
     }
     update(selectedItem.id);
-    generateCartItems();
+    generateCartItems()
     patchAPI(selectedItem.id);
-    
 };
-
-
 
 function update(id) {
     let search = cartArray.find(x => x.id == id);
@@ -131,7 +125,7 @@ function update(id) {
         amt.classList.remove('fade');
     }, 180);
 
-
+    totalPrice();
 };
 
 function trashItem(id) {
@@ -152,6 +146,13 @@ function ClearCart() {
     })
 
     generateCartItems();
+}
+
+function totalPrice() {
+    let amount = cartArray.map((x) => {
+        return x.item * x.price;
+    }).reduce((x,y)=>x+y, 0)
+    total.innerHTML = `TOTAL: $${amount.toFixed(2)}`
 }
 
 function patchAPI(id) {
