@@ -135,6 +135,7 @@ i:hover {
     font-size: 24px;
 }
 .checkoutBtn {
+    padding-top: 14px;
     padding-left: 24px;
     padding-right: 24px;
     height: 100%;
