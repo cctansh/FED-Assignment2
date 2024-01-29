@@ -24,5 +24,23 @@ let shopitemsData = [{
     category:"bracelet"
 }]
 
-let basket = JSON.parse(localStorage.getItem("data")) || [];
+localStorage.setItem("data", JSON.stringify(basket));
 
+let total = document.getElementById('total')
+
+let shoppingCart = document.getElementById('cartArea')
+
+function generateCartItems() {
+    if (cartArray.length !== 0) {
+        return;
+    } else {
+        shoppingCart.innerHTML = `
+        <div class="empty">
+        <h1>Your cart is empty.</h1>
+        <a href="products.html"><button type="button" class="btn btn-outline-dark clearCart">Go to Products</button></a>
+        </div>
+        `
+    }
+}
+
+generateCartItems();

@@ -1,3 +1,6 @@
+const apiKey = "65b665611aac406df1278a6f";
+const apiUrl = 'https://products-aa44.restdb.io/rest/basket';
+
 let shop = document.getElementById("productContent")
 
 let shopitemsData = [{
@@ -133,8 +136,11 @@ function increment(id) {
     }
 
     update(id);
-
     localStorage.setItem("data", JSON.stringify(basket));
+
+    
+   
+    
 }
 
 function decrement(id) {
@@ -157,6 +163,7 @@ function decrement(id) {
     basket = basket.filter((x)=>x.item !== 0);
 
     localStorage.setItem("data", JSON.stringify(basket));
+    
 };
 
 function update(id) {
@@ -173,3 +180,4 @@ function update(id) {
 
     console.log(basket)
 };
+
