@@ -1,11 +1,21 @@
 const apiKey = "65b665611aac406df1278a6f";
 const apiUrl = 'https://products-aa44.restdb.io/rest/basket';
 
+let loading = document.getElementById("loading");
+let loadingIcon = document.getElementById("loading-icon");
+let nav = document.getElementById("navbar");
+let body = document.getElementById('content')
+
 let shop = document.getElementById("productContent")
 var products = JSON.parse(localStorage.getItem("data")) || [];
 var f = 'all';
 
 if (products.length === 0) {
+    loading.classList.remove('hidden');
+    loadingIcon.classList.remove('hidden');
+    nav.classList.add('hidden');
+    body.classList.add('hidden');
+
     fetch(apiUrl, {
         method: 'GET',
         headers: {
@@ -30,6 +40,11 @@ if (products.length === 0) {
             }
             localStorage.setItem("data",JSON.stringify(products))
             generateShop(products);
+            
+            loading.classList.add('hidden');
+            loadingIcon.classList.add('hidden');
+            nav.classList.remove('hidden');
+            body.classList.remove('hidden');
     })
         .catch(error => {
           console.error('Error:', error);
@@ -44,8 +59,8 @@ else {
 function generateShop(a) {
     return (shop.innerHTML= a.map((x)=>{
         return `
-        <div id=product-id-${x.id} class="col-12 col-md-6 col-lg-4 item ${x.category}">
-        <img width="90%" height="300px" src="${x.img}">
+        <div id=product-id-${x.id} class="col-12 col-md-4 col-lg-3 item ${x.category}">
+        <img width="232px" height="300px" src="${x.img}">
         <div class="details">
             <h3 class="pName">${x.name}</h3>
             <div class="price-quantity">
@@ -173,6 +188,14 @@ function update(id) {
 
 function delay (URL) {
     setTimeout( function() { window.location = URL }, 9500);
+    page = document.getElementsByTagName('body')[0];
+    page.innerHTML = `
+    <div>
+		<div class="animation-center">
+            <dotlottie-player src="https://lottie.host/00f5781f-7a7c-4254-91c1-5d58abf0f4fe/j0ppqxUpMa.json" background="transparent" speed="1" style="width: 300px; height: 300px" direction="1" playMode="normal" loop autoplay></dotlottie-player>
+		</div>
+	</div>
+	`;
 }
 
 function patchAPI() {

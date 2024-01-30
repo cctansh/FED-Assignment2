@@ -1,11 +1,21 @@
 const apiKey = "65b665611aac406df1278a6f";
 const apiUrl = 'https://products-aa44.restdb.io/rest/basket';
 
+let loading = document.getElementById("loading");
+let loadingIcon = document.getElementById("loading-icon");
+let nav = document.getElementById("navbar");
+let body = document.getElementById('content')
+
 let total = document.getElementById('total');
 let shoppingCart = document.getElementById('cartItems');
 var cartArray = JSON.parse(localStorage.getItem("data")) || [];
 
 if (cartArray.length === 0) {
+    loading.classList.remove('hidden');
+    loadingIcon.classList.remove('hidden');
+    nav.classList.add('hidden');
+    body.classList.add('hidden');
+
     fetch(apiUrl, {
         method: 'GET',
         headers: {
@@ -30,6 +40,11 @@ if (cartArray.length === 0) {
             }
             localStorage.setItem("data",JSON.stringify(cartArray))
             generateCartItems();
+
+            loading.classList.add('hidden');
+            loadingIcon.classList.add('hidden');
+            nav.classList.remove('hidden');
+            body.classList.remove('hidden');
     })
         .catch(error => {
           console.error('Error:', error);
@@ -141,6 +156,14 @@ function ClearCart() {
 
 function delay (URL) {
     setTimeout( function() { window.location = URL }, 10000);
+    page = document.getElementsByTagName('body')[0];
+    page.innerHTML = `
+    <div>
+		<div class="animation-center">
+            <dotlottie-player src="https://lottie.host/00f5781f-7a7c-4254-91c1-5d58abf0f4fe/j0ppqxUpMa.json" background="transparent" speed="1" style="width: 300px; height: 300px" direction="1" playMode="normal" loop autoplay></dotlottie-player>
+    	</div>
+	</div>
+	`;
 }
 
 function patchAPI() {
