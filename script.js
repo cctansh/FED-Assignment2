@@ -2,36 +2,44 @@ const apiKey = "65b665611aac406df1278a6f";
 const apiUrl = 'https://products-aa44.restdb.io/rest/basket';
 
 let shop = document.getElementById("productContent")
-var products = [];
+var products = JSON.parse(localStorage.getItem("data")) || [];
 var f = 'all';
 
-fetch(apiUrl, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-      'x-apikey': apiKey,
-      "Cache-Control": "no-cache"
-    },
-})
-    .then(response => response.json())
-    .then(response => {
+if (products.length === 0) {
+    fetch(apiUrl, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-apikey': apiKey,
+          "Cache-Control": "no-cache"
+        },
+    })
+        .then(response => response.json())
+        .then(response => {
+    
+            for (var i = 0; i < response.length; i++) {
+                products.push({
+                    apiID: response[i]._id,
+                    id: response[i].id,
+                    name: response[i].name,
+                    price: response[i].price,
+                    img: response[i].img,
+                    category: response[i].category,
+                    item: response[i].item,
+                })
+            }
+            localStorage.setItem("data",JSON.stringify(products))
+            generateShop(products);
+    })
+        .catch(error => {
+          console.error('Error:', error);
+    });
+}
+else {
+    generateShop(products)
+}
 
-        for (var i = 0; i < response.length; i++) {
-            products.push({
-                apiID: response[i]._id,
-                id: response[i].id,
-                name: response[i].name,
-                price: response[i].price,
-                img: response[i].img,
-                category: response[i].category,
-                item: response[i].item,
-            })
-        }
-        generateShop(products);
-})
-    .catch(error => {
-      console.error('Error:', error);
-});
+
 
 function generateShop(a) {
     return (shop.innerHTML= a.map((x)=>{
@@ -127,8 +135,7 @@ function increment(id) {
     search.item += 1;
     
     update(selectedItem.id);
-
-    patchAPI(selectedItem.id);
+    localStorage.setItem("data",JSON.stringify(products))
 }
 
 function decrement(id) {
@@ -148,9 +155,7 @@ function decrement(id) {
         search.item -= 1;
     }
     update(selectedItem.id);
-
-    patchAPI(selectedItem.id);
-    
+    localStorage.setItem("data",JSON.stringify(products))
 };
 
 function update(id) {
@@ -164,30 +169,28 @@ function update(id) {
         amt.innerHTML = search.item;
         amt.classList.remove('fade');
     }, 180);
-
-
 };
 
-function patchAPI(id) {
-    console.log(products);
-
-    let search = products.find(x => x.id == id)
-
-    var settings = {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          "x-apikey": apiKey,
-          "Cache-Control": "no-cache"
-        },
-        body: JSON.stringify(search)
-      }
-  
-      fetch(`${apiUrl}/${search.apiID}`, settings)
-        .then(response => response.json())
-        .then(data => {
-          console.log(data);
-        });
+function delay (URL) {
+    setTimeout( function() { window.location = URL }, 9500);
 }
 
+function patchAPI() {
+    localStorage.clear();
+    products.forEach(obj => {
+        fetch(`${apiUrl}/${obj.apiID}`, {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json",
+                "x-apikey": apiKey,
+                "Cache-Control": "no-cache"
+            },
+            body: JSON.stringify({item: obj.item})
+            })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+        });
+    })
+}    
     

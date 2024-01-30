@@ -85,6 +85,14 @@ h1 {
     width:150px;
 }
 
+a{
+    cursor: pointer;
+}
+
+.nav-item .active {
+    cursor: default;
+}
+
 i{
     cursor: pointer;
     transition: all .2s ease;

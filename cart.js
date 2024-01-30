@@ -3,43 +3,51 @@ const apiUrl = 'https://products-aa44.restdb.io/rest/basket';
 
 let total = document.getElementById('total');
 let shoppingCart = document.getElementById('cartItems');
-var cartArray = [];
+var cartArray = JSON.parse(localStorage.getItem("data")) || [];
 
-fetch(apiUrl, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-      'x-apikey': apiKey,
-      "Cache-Control": "no-cache"
-    },
-})
-    .then(response => response.json())
-    .then(response => {
-
-        for (var i = 0; i < response.length; i++) {
-            cartArray.push({
-                apiID: response[i]._id,
-                id: response[i].id,
-                name: response[i].name,
-                price: response[i].price,
-                img: response[i].img,
-                category: response[i].category,
-                item: response[i].item,
-            })
-        }
-        generateCartItems();
-})
-    .catch(error => {
-      console.error('Error:', error);
-});
+if (cartArray.length === 0) {
+    fetch(apiUrl, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-apikey': apiKey,
+          "Cache-Control": "no-cache"
+        },
+    })
+        .then(response => response.json())
+        .then(response => {
+    
+            for (var i = 0; i < response.length; i++) {
+                cartArray.push({
+                    apiID: response[i]._id,
+                    id: response[i].id,
+                    name: response[i].name,
+                    price: response[i].price,
+                    img: response[i].img,
+                    category: response[i].category,
+                    item: response[i].item,
+                })
+            }
+            localStorage.setItem("data",JSON.stringify(cartArray))
+            generateCartItems();
+    })
+        .catch(error => {
+          console.error('Error:', error);
+    });
+}
+else {
+    generateCartItems();
+}
 
 function generateCartItems() {
     let hasItems = false;
     var content = ""
+    var total = 0;
 
     cartArray.forEach(obj => {
         if (obj.item > 0) {
             hasItems = true;
+            total += obj.price * obj.item;
             content = `
             ${content}
             <div id=product-id-${obj.id} class="cartItem text-center">
@@ -62,12 +70,12 @@ function generateCartItems() {
 
     if (hasItems) {
         shoppingCart.innerHTML = content;
-        totalPrice();
+        total.innerHTML = `TOTAL: $${total.toFixed(2)}`
     } else {
         shoppingCart.innerHTML = `
         <div class="empty">
         <h1>Your cart is empty.</h1>
-        <a href="products.html"><button type="button" class="btn btn-outline-dark clearCart">Go to Products</button></a>
+        <button type="button" class="btn btn-outline-dark clearCart" onclick="patchAPI();delay('products.html');">Go to Products</button>
         </div>
         `
         total.innerHTML = `TOTAL: $00.00`
@@ -87,9 +95,8 @@ function increment(id) {
 
     search.item += 1;
     
-    update(selectedItem.id);
     generateCartItems()
-    patchAPI(selectedItem.id);
+    localStorage.setItem("data",JSON.stringify(cartArray))
 }
 
 function decrement(id) {
@@ -108,24 +115,8 @@ function decrement(id) {
     } else {
         search.item -= 1;
     }
-    update(selectedItem.id);
     generateCartItems()
-    patchAPI(selectedItem.id);
-};
-
-function update(id) {
-    let search = cartArray.find(x => x.id == id);
-
-    var amt = document.getElementById(id); 
-
-    amt.classList.add('fade');
-  
-    setTimeout(function(){
-        amt.innerHTML = search.item;
-        amt.classList.remove('fade');
-    }, 180);
-
-    totalPrice();
+    localStorage.setItem("data",JSON.stringify(cartArray))
 };
 
 function trashItem(id) {
@@ -136,43 +127,38 @@ function trashItem(id) {
     search.item = 0;
     
     generateCartItems();
-    patchAPI(selectedItem.id);
+    localStorage.setItem("data",JSON.stringify(cartArray))
 }
 
 function ClearCart() {
     cartArray.forEach(obj => {
         obj.item = 0;
-        patchAPI(obj.id)
     })
 
     generateCartItems();
+    localStorage.setItem("data",JSON.stringify(cartArray))
 }
 
-function totalPrice() {
-    let amount = cartArray.map((x) => {
-        return x.item * x.price;
-    }).reduce((x,y)=>x+y, 0)
-    total.innerHTML = `TOTAL: $${amount.toFixed(2)}`
+function delay (URL) {
+    setTimeout( function() { window.location = URL }, 10000);
 }
 
-function patchAPI(id) {
-    console.log(cartArray);
-
-    let search = cartArray.find(x => x.id == id)
-
-    var settings = {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          "x-apikey": apiKey,
-          "Cache-Control": "no-cache"
-        },
-        body: JSON.stringify(search)
-      }
-  
-      fetch(`${apiUrl}/${search.apiID}`, settings)
+function patchAPI() {
+    localStorage.clear();
+    cartArray.forEach(obj => {
+        fetch(`${apiUrl}/${obj.apiID}`, {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json",
+                "x-apikey": apiKey,
+                "Cache-Control": "no-cache"
+            },
+            body: JSON.stringify({item: obj.item})
+            })
         .then(response => response.json())
         .then(data => {
-          console.log(data);
+            console.log(data);
         });
-}
+    })
+}    
+
