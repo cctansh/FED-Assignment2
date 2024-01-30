@@ -1,43 +1,66 @@
 const apiKey = "65b665611aac406df1278a6f";
 const apiUrl = 'https://products-aa44.restdb.io/rest/basket';
 
+let loading = document.getElementById("loading");
+let loadingIcon = document.getElementById("loading-icon");
+let nav = document.getElementById("navbar");
+let body = document.getElementById('content')
+
 let shop = document.getElementById("productContent")
-var products = [];
+var products = JSON.parse(localStorage.getItem("data")) || [];
 var f = 'all';
 
-fetch(apiUrl, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-      'x-apikey': apiKey,
-      "Cache-Control": "no-cache"
-    },
-})
-    .then(response => response.json())
-    .then(response => {
+if (products.length === 0) {
+    loading.classList.remove('hidden');
+    loadingIcon.classList.remove('hidden');
+    nav.classList.add('hidden');
+    body.classList.add('hidden');
 
-        for (var i = 0; i < response.length; i++) {
-            products.push({
-                apiID: response[i]._id,
-                id: response[i].id,
-                name: response[i].name,
-                price: response[i].price,
-                img: response[i].img,
-                category: response[i].category,
-                item: response[i].item,
-            })
-        }
-        generateShop(products);
-})
-    .catch(error => {
-      console.error('Error:', error);
-});
+    fetch(apiUrl, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-apikey': apiKey,
+          "Cache-Control": "no-cache"
+        },
+    })
+        .then(response => response.json())
+        .then(response => {
+    
+            for (var i = 0; i < response.length; i++) {
+                products.push({
+                    apiID: response[i]._id,
+                    id: response[i].id,
+                    name: response[i].name,
+                    price: response[i].price,
+                    img: response[i].img,
+                    category: response[i].category,
+                    item: response[i].item,
+                })
+            }
+            localStorage.setItem("data",JSON.stringify(products))
+            generateShop(products);
+            
+            loading.classList.add('hidden');
+            loadingIcon.classList.add('hidden');
+            nav.classList.remove('hidden');
+            body.classList.remove('hidden');
+    })
+        .catch(error => {
+          console.error('Error:', error);
+    });
+}
+else {
+    generateShop(products)
+}
+
+
 
 function generateShop(a) {
     return (shop.innerHTML= a.map((x)=>{
         return `
-        <div id=product-id-${x.id} class="col-12 col-md-6 col-lg-4 item ${x.category}">
-        <img width="90%" height="300px" src="${x.img}">
+        <div id=product-id-${x.id} class="col-12 col-md-4 col-lg-3 item ${x.category}">
+        <img width="232px" height="300px" src="${x.img}">
         <div class="details">
             <h3 class="pName">${x.name}</h3>
             <div class="price-quantity">
@@ -127,8 +150,7 @@ function increment(id) {
     search.item += 1;
     
     update(selectedItem.id);
-
-    patchAPI(selectedItem.id);
+    localStorage.setItem("data",JSON.stringify(products))
 }
 
 function decrement(id) {
@@ -148,9 +170,7 @@ function decrement(id) {
         search.item -= 1;
     }
     update(selectedItem.id);
-
-    patchAPI(selectedItem.id);
-    
+    localStorage.setItem("data",JSON.stringify(products))
 };
 
 function update(id) {
@@ -164,30 +184,36 @@ function update(id) {
         amt.innerHTML = search.item;
         amt.classList.remove('fade');
     }, 180);
-
-
 };
 
-function patchAPI(id) {
-    console.log(products);
-
-    let search = products.find(x => x.id == id)
-
-    var settings = {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          "x-apikey": apiKey,
-          "Cache-Control": "no-cache"
-        },
-        body: JSON.stringify(search)
-      }
-  
-      fetch(`${apiUrl}/${search.apiID}`, settings)
-        .then(response => response.json())
-        .then(data => {
-          console.log(data);
-        });
+function delay (URL) {
+    setTimeout( function() { window.location = URL }, 9500);
+    page = document.getElementsByTagName('body')[0];
+    page.innerHTML = `
+    <div>
+		<div class="animation-center">
+            <dotlottie-player src="https://lottie.host/00f5781f-7a7c-4254-91c1-5d58abf0f4fe/j0ppqxUpMa.json" background="transparent" speed="1" style="width: 300px; height: 300px" direction="1" playMode="normal" loop autoplay></dotlottie-player>
+		</div>
+	</div>
+	`;
 }
 
+function patchAPI() {
+    localStorage.clear();
+    products.forEach(obj => {
+        fetch(`${apiUrl}/${obj.apiID}`, {
+            method: "PATCH",
+            headers: {
+                "Content-Type": "application/json",
+                "x-apikey": apiKey,
+                "Cache-Control": "no-cache"
+            },
+            body: JSON.stringify({item: obj.item})
+            })
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+        });
+    })
+}    
     
