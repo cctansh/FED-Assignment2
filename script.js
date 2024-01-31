@@ -60,18 +60,20 @@ function generateShop(a) {
     return (shop.innerHTML= a.map((x)=>{
         return `
         <div id=product-id-${x.id} class="col-12 col-md-4 col-lg-3 item ${x.category}">
-        <img width="232px" height="300px" src="${x.img}">
-        <div class="details">
-            <h3 class="pName">${x.name}</h3>
-            <div class="price-quantity">
-            <h4 class="pPrice">$${x.price}</h4>
-            <div class="quantity-buttons">
-                <i id=minus-${x.id} onclick="decrement(${x.id})" class="bi bi-dash-lg"></i>
-                <div id=${x.id} class="quantity">${x.item}</div>
-                <i id=plus-${x.id} onclick="increment(${x.id})" class="bi bi-plus-lg"></i>
+            <img class="productImg" src="${x.img}">
+            <div class="details text-center">
+                <div class="pNameDiv">
+                    <h3 class="pName">${x.name}</h3>
+                </div>
+                <div class="pPriceDiv">
+                    <h4 class="pPrice">$${x.price}</h4>
+                </div>
+                <div class="quantity-buttons">
+                    <i id=minus-${x.id} onclick="decrement(${x.id})" class="bi bi-dash-lg"></i>
+                    <div id=${x.id} class="quantity">${x.item}</div>
+                    <i id=plus-${x.id} onclick="increment(${x.id})" class="bi bi-plus-lg"></i>
+                </div>
             </div>
-            </div>
-        </div>
         </div>
         `;
     }).join(""));
@@ -187,7 +189,7 @@ function update(id) {
 };
 
 function delay (URL) {
-    setTimeout( function() { window.location = URL }, 9500);
+    setTimeout( function() { window.location = URL }, 20000);
     page = document.getElementsByTagName('body')[0];
     page.innerHTML = `
     <div>
