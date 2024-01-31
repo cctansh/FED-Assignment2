@@ -66,17 +66,19 @@ function generateCartItems() {
             content = `
             ${content}
             <div id=product-id-${obj.id} class="cartItem text-center">
-                <i onclick="trashItem(${obj.id})" class="bi bi-x-circle-fill trash"></i>
-                <img width="193px" height="250px" src="${obj.img}">
+                <i onclick="trashItem(${obj.id})" class="bi bi-x-circle trash"></i>
+                <img class="cartImg" src="${obj.img}">
                 <div class="details">
-                    <h3 class="pName">${obj.name}</h3>
-                    <div class="price-quantity">
+                    <div class="pNameDiv">
+                        <h3 class="pName">${obj.name}</h3>
+                    </div>
+                    <div class="pPriceDiv">
                         <h4 id="pPrice" class="pPrice">$${(obj.price * obj.item).toFixed(2)}</h4>
-                        <div class="quantity-buttons">
+                    </div>
+                    <div class="quantity-buttons">
                             <i id=minus-${obj.id} onclick="decrement(${obj.id})" class="bi bi-dash-lg"></i>
                             <div id=${obj.id} class="quantity">${obj.item}</div>
                             <i id=plus-${obj.id} onclick="increment(${obj.id})" class="bi bi-plus-lg"></i>
-                        </div>
                     </div>
                 </div>
             </div>`
@@ -155,7 +157,7 @@ function ClearCart() {
 }
 
 function delay (URL) {
-    setTimeout( function() { window.location = URL }, 10000);
+    setTimeout( function() { window.location = URL }, 20000);
     page = document.getElementsByTagName('body')[0];
     page.innerHTML = `
     <div>
