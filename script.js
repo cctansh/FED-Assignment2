@@ -5,6 +5,7 @@ let loading = document.getElementById("loading");
 let loadingIcon = document.getElementById("loading-icon");
 let nav = document.getElementById("navbar");
 let body = document.getElementById('content')
+let foot = document.getElementById('foot')
 
 let shop = document.getElementById("productContent")
 var products = JSON.parse(localStorage.getItem("data")) || [];
@@ -15,6 +16,7 @@ if (products.length === 0) {
     loadingIcon.classList.remove('hidden');
     nav.classList.add('hidden');
     body.classList.add('hidden');
+    foot.classList.add('hidden');
 
     fetch(apiUrl, {
         method: 'GET',
@@ -45,6 +47,7 @@ if (products.length === 0) {
             loadingIcon.classList.add('hidden');
             nav.classList.remove('hidden');
             body.classList.remove('hidden');
+            foot.classList.remove('hidden');
     })
         .catch(error => {
           console.error('Error:', error);

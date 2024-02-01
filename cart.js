@@ -5,6 +5,7 @@ let loading = document.getElementById("loading");
 let loadingIcon = document.getElementById("loading-icon");
 let nav = document.getElementById("navbar");
 let body = document.getElementById('content')
+let foot = document.getElementById('foot')
 
 let total = document.getElementById('total');
 let shoppingCart = document.getElementById('cartItems');
@@ -15,6 +16,7 @@ if (cartArray.length === 0) {
     loadingIcon.classList.remove('hidden');
     nav.classList.add('hidden');
     body.classList.add('hidden');
+    foot.classList.add('hidden');
 
     fetch(apiUrl, {
         method: 'GET',
@@ -45,6 +47,7 @@ if (cartArray.length === 0) {
             loadingIcon.classList.add('hidden');
             nav.classList.remove('hidden');
             body.classList.remove('hidden');
+            foot.classList.remove('hidden');
     })
         .catch(error => {
           console.error('Error:', error);
@@ -92,7 +95,7 @@ function generateCartItems() {
         shoppingCart.innerHTML = `
         <div class="empty">
         <h1>Your cart is empty.</h1>
-        <button type="button" class="btn btn-outline-dark clearCart" onclick="patchAPI();delay('products.html');">Go to Products</button>
+        <button type="button" class="btn btn-outline-dark clearCart" onclick="patchAPI();delay('products.html');">VIEW PRODUCTS</button>
         </div>
         `
         total.innerHTML = `TOTAL: $00.00`
