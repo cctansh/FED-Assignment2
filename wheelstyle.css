@@ -3,7 +3,7 @@ body {
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-color: #f7f7f7;
+  gap: 64px;
 }
 canvas {
   border: 5px solid #ccc;
@@ -11,7 +11,10 @@ canvas {
 }
 #spin-button {
   padding: 10px 20px;
-  font-size: 18px;
+  font-size: 22px;
   margin-top: 20px;
-  cursor: pointer;
+  border-radius: 0;
+}
+.spin-text {
+  text-align: center;
 }
