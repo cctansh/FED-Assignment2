@@ -25,48 +25,44 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item">
-            <a class="nav-link" onclick="patchAPI();delay('index.html');">HOME</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link active" aria-current="page">PRODUCTS</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" onclick="patchAPI();delay('cart.html');">CART</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" onclick="patchAPI();delay('leaderboard.html');">LEADERBOARD</a>
-        </li>
+            <li class="nav-item">
+                <a class="nav-link" href="index.html">HOME</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="products.html">PRODUCTS</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="cart.html">CART</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link active" aria-current="page"  href="leaderboard.html">LEADERBOARD</a>
+            </li>
       </div>
     </div>
   </nav>
-  <main id="content" class="padNav container text-center">
-    <div class="row productHeader">
-      <div class="col">
-        <div class="pageTitle">
-          <h1>OUR PRODUCTS</h1>
-        </div>
-        <div class="filters text-start">
-          <label for="cat">Categories:</label>
-          <select id="cat" class="form-select">
-            <option onclick="filterCat('all')">All</option>
-            <option onclick="filterCat('ring')">Rings</option>
-            <option onclick="filterCat('necklace')">Necklaces</option>
-            <option onclick="filterCat('bracelet')">Bracelets</option>
-          </select> 
-
-          <label for="sort">Sort by Price:</label>
-          <select id="sort" class="form-select">
-            <option onclick="Default()">Default</option>
-            <option onclick="LowToHigh()">Low to High</option>
-            <option onclick="HighToLow()">High to Low</option>
-          </select> 
-          
-        </div>
-      </div>
+  <main id="content" class="padNav container text-center flexbody">
+    <div class="pageTitle">
+        <h1>LEADERBOARD</h1>
+        <p>This month's prize: iPad Pro</p>
     </div>
-    <div class="row" id="productContent">
-      
+    <div class="board">
+        <div class="boardRow boardHead">
+            <div class="rank">
+                Rank
+            </div>
+            <div class="name">
+                Name
+            </div>
+            <div class="spent">
+                Spent
+            </div>
+        </div>
+        <div id="leaderboard">
+            <!-- js goes here -->
+        </div>
+    </div>
+    <div class="animation">
+        <dotlottie-player class="boardlottie" src="https://lottie.host/a6ffcd53-5ef8-4c15-945c-b60f5bfe2ae5/3aL2fwHoUp.json" background="transparent" speed="1" style="width: 15%; height: 15%" direction="1" playMode="normal" loop autoplay></dotlottie-player>
     </div>
   </main>
   <footer id="foot">
@@ -82,6 +78,6 @@
   </footer>
   <script src="js/bootstrap.bundle.js"></script>
   <script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script>
-  <script src="script.js"></script>
+  <script src="leaderboard.js"></script>
 </body>
 </html>
