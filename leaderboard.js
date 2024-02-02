@@ -4,9 +4,6 @@ const apiUrl = 'https://products-aa44.restdb.io/rest/leaderboard';
 var urlParams = new URLSearchParams(window.location.search);
 var bill = urlParams.get('bill');
 
-// Display the received variable in the leaderboard.html page
-console.log("Total from index.html: " + bill);
-
 // Array to store user data
 var usersData = [];
 
@@ -29,7 +26,7 @@ fetch(apiUrl, {
                 spent: response[i].spent,
             })
         }
-        localStorage.setItem("data",JSON.stringify(usersData))
+        console.log(usersData);
 })
     .catch(error => {
       console.error('Error:', error);
@@ -78,7 +75,7 @@ function validateSignUp() {
         dn: dn,
         email: email,
         password: password,
-        spent: 232
+        spent: bill
     };
 
     fetch(apiUrl, {
@@ -104,14 +101,35 @@ function validateLogin() {
     var loginEmail = document.getElementById('login-email').value;
     var loginPassword = document.getElementById('login-password').value;
 
-    // Check if there is a match in the array
-    var userMatch = usersData.find(function(user) {
-        return user.email === loginEmail && user.password === loginPassword;
-    });
+    let userMatch = false;
 
-    if (userMatch) {
-        document.getElementById('login-error-message').innerText = 'Login successful!';
-    } else {
+    usersData.forEach(user => {
+        if (user.email === loginEmail && user.password === loginPassword) {
+            userMatch = true;
+            document.getElementById('login-error-message').innerText = 'Login successful!';
+
+            user.spent = parseFloat(user.spent) + parseFloat(bill);
+
+            fetch(`${apiUrl}/${user.apiID}`, {
+                method: "PATCH",
+                headers: {
+                    "Content-Type": "application/json",
+                    "x-apikey": apiKey,
+                    "Cache-Control": "no-cache"
+                },
+                body: JSON.stringify({spent: user.spent})
+                })
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                    // Clear any previous error messages
+                document.getElementById('signup-error-message').innerText = '';
+                console.log('User signed up successfully. User data:', user);
+            })
+        }
+    })
+    
+    if (!userMatch) {
         document.getElementById('login-error-message').innerText = 'Invalid email or password';
     }
 }
