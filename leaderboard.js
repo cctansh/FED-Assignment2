@@ -133,3 +133,11 @@ function validateLogin() {
         document.getElementById('login-error-message').innerText = 'Invalid email or password';
     }
 }
+
+function GoToForm() {
+    let cover = document.getElementById("coverpage");
+    let regform = document.getElementById("registerform");
+
+    cover.classList.add('hidden');
+    regform.classList.remove('hidden');
+}

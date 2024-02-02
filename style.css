@@ -330,11 +330,41 @@ form {
     width: 80%;
 }
 
-.btnrow {
+#coverpage {
     display: flex;
+    flex-direction: column;
+    align-items: center;
     justify-content: center;
+    height: 100vh;
 }
 
+#coverpage p {
+    font-size: 20px;
+}
+
+#coverpage .notice {
+    font-size: 18px;
+}
+
+.registerbtn,
 .skipbtn {
-    width: 8em;
+    width: 12em;
+    border-radius: 0;
+    margin: 8px;
+    font-size: 18px;
+}
+
+#registerform {
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+#registerform .row {
+    width: 100%;
+}
+
+.vline {
+    border-right: 2px solid rgb(181, 181, 181);
 }
