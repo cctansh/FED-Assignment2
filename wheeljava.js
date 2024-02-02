@@ -91,9 +91,13 @@ document.addEventListener('DOMContentLoaded', function() {
         }
       }
       
-      
       // Start spinning
       window.requestAnimationFrame(rotate);
+      
+      setTimeout( function() { 
+        window.location = "leaderboardform.html" + window.location.search;
+      }, 7000);
+      
     });
   
     // Initial draw

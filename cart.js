@@ -7,6 +7,8 @@ let nav = document.getElementById("navbar");
 let body = document.getElementById('content')
 let foot = document.getElementById('foot')
 
+var bill = 0;
+
 let total = document.getElementById('total');
 let shoppingCart = document.getElementById('cartItems');
 var cartArray = JSON.parse(localStorage.getItem("data")) || [];
@@ -60,12 +62,12 @@ else {
 function generateCartItems() {
     let hasItems = false;
     var content = ""
-    var total = 0;
+    bill = 0;
 
     cartArray.forEach(obj => {
         if (obj.item > 0) {
             hasItems = true;
-            total += obj.price * obj.item;
+            bill += obj.price * obj.item;
             content = `
             ${content}
             <div id=product-id-${obj.id} class="cartItem text-center">
@@ -90,7 +92,7 @@ function generateCartItems() {
 
     if (hasItems) {
         shoppingCart.innerHTML = content;
-        total.innerHTML = `TOTAL: $${total.toFixed(2)}`
+        total.innerHTML = `TOTAL: $${bill.toFixed(2)}`
     } else {
         shoppingCart.innerHTML = `
         <div class="empty">
@@ -190,3 +192,11 @@ function patchAPI() {
     })
 }    
 
+function Checkout() {
+    cartArray.forEach(obj => {
+        obj.item = 0;
+    })
+    patchAPI();
+    // can put if else here for diff wheels
+    delay("Wheel.html?bill=" + encodeURIComponent(bill))
+}

@@ -312,3 +312,29 @@ i:hover {
         width: 100%;
     }
 }
+
+/* form */
+
+form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    row-gap: 16px;
+}
+
+.inputs {
+    display: flex;
+    flex-direction: column;
+    row-gap: 16px;
+    width: 80%;
+}
+
+.btnrow {
+    display: flex;
+    justify-content: center;
+}
+
+.skipbtn {
+    width: 8em;
+}

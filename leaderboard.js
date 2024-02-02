@@ -1,6 +1,12 @@
 const apiKey = "65b665611aac406df1278a6f";
 const apiUrl = 'https://products-aa44.restdb.io/rest/leaderboard';
 
+var urlParams = new URLSearchParams(window.location.search);
+var bill = urlParams.get('bill');
+
+// Display the received variable in the leaderboard.html page
+console.log("Total from index.html: " + bill);
+
 // Array to store user data
 var usersData = [];
 
