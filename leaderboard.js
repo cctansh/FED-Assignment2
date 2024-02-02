@@ -35,6 +35,7 @@ fetch(apiUrl, {
                 spent: response[i].spent,
             })
         }
+        usersData.sort((a,b) => b.spent - a.spent);
         console.log(usersData);
         printLeaderboard();
         loading.classList.add('hidden');

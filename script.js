@@ -192,7 +192,7 @@ function update(id) {
 };
 
 function delay (URL) {
-    setTimeout( function() { window.location = URL }, 20000);
+    setTimeout( function() { window.location.href = URL }, 20000);
     page = document.getElementsByTagName('body')[0];
     page.innerHTML = `
     <div>
