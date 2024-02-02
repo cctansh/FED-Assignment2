@@ -3,12 +3,12 @@ document.addEventListener('DOMContentLoaded', function() {
     const ctx = canvas.getContext('2d');
     const spinButton = document.getElementById('spin-button');
     const segments = [
-      { label: 'Free necklace', color: '#f5cfc4' },
-      { label: '10% off', color: '#f5dec4' },
-      { label: 'Free shipping', color: '#f7f3c8' },
-      { label: '5% off', color: '#d0f7c8' },
-      { label: 'Free socks', color: '#c8e1f7' },
-      { label: '15% off', color: '#dec8f7' }
+      { label: '$10 Gift Card', color: '#f5cfc4' },
+      { label: 'Free Shipping (2)', color: '#f5dec4' },
+      { label: '$15 Gift Card', color: '#f7f3c8' },
+      { label: 'Polishing Service (3)', color: '#d0f7c8' },
+      { label: 'Free Refitting', color: '#c8e1f7' },
+      { label: '10% Discount Code', color: '#dec8f7' }
     ];
     const numSegments = segments.length;
     const segmentAngle = (2 * Math.PI) / numSegments;
@@ -32,7 +32,7 @@ document.addEventListener('DOMContentLoaded', function() {
         ctx.rotate(index * segmentAngle + segmentAngle / 2 + currentRotation);
         ctx.textAlign = "right";
         ctx.fillStyle = "black";
-        ctx.font = "20px Helvetica, Arial, sans-serif";
+        ctx.font = "18px Helvetica, Arial, sans-serif";
         ctx.fillText(segment.label, radius - 10, 10);
         ctx.restore();
       });
@@ -101,6 +101,10 @@ document.addEventListener('DOMContentLoaded', function() {
     });
   
     // Initial draw
+    var urlParams = new URLSearchParams(window.location.search);
+    var bill = urlParams.get('bill');
+    let title = this.getElementById("title");
+    title.innerHTML = `Thank you for spending $${bill}!`;
     drawWheel();
     drawArrow();
 });

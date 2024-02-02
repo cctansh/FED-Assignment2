@@ -198,5 +198,14 @@ function Checkout() {
     })
     patchAPI();
     // can put if else here for diff wheels
-    delay("Wheel.html?bill=" + encodeURIComponent(bill))
+    if (bill >= 150) {
+        delay("Wheel150.html?bill=" + encodeURIComponent(bill));
+    } else if (bill >= 100) {
+        delay("Wheel100.html?bill=" + encodeURIComponent(bill));
+    } else if (bill >= 50) {
+        delay("Wheel50.html?bill=" + encodeURIComponent(bill));
+    }
+    else {
+        delay("leaderboardform.html?bill=" + encodeURIComponent(bill));
+    }
 }
