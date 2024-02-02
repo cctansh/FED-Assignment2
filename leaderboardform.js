@@ -78,6 +78,8 @@ function validateSignUp() {
         spent: bill
     };
 
+    delay('leaderboard.html');
+
     fetch(apiUrl, {
         method: "POST",
         headers: {
@@ -110,6 +112,8 @@ function validateLogin() {
 
             user.spent = parseFloat(user.spent) + parseFloat(bill);
 
+            delay('leaderboard.html');
+
             fetch(`${apiUrl}/${user.apiID}`, {
                 method: "PATCH",
                 headers: {
@@ -140,4 +144,16 @@ function GoToForm() {
 
     cover.classList.add('hidden');
     regform.classList.remove('hidden');
+}
+
+function delay (URL) {
+    setTimeout( function() { window.location = URL }, 6000);
+    page = document.getElementsByTagName('body')[0];
+    page.innerHTML = `
+    <div>
+		<div class="animation-center">
+            <dotlottie-player src="https://lottie.host/00f5781f-7a7c-4254-91c1-5d58abf0f4fe/j0ppqxUpMa.json" background="transparent" speed="1" style="width: 300px; height: 300px" direction="1" playMode="normal" loop autoplay></dotlottie-player>
+		</div>
+	</div>
+	`;
 }
