@@ -133,6 +133,15 @@ footer .brand {
     background: url(img/bg3.png) no-repeat center center fixed; 
 }
 
+.carousel .carousel-indicators button {
+    background-color: #fff;
+    background-color: rgba(70, 70, 70, 0.65);
+}
+  
+.carousel .carousel-indicators .active {
+    background-color: #333;
+}
+
 /* product page */
 
 #productContent {
