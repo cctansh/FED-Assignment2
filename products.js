@@ -8,6 +8,7 @@ let body = document.getElementById('content')
 let foot = document.getElementById('foot')
 
 let shop = document.getElementById("productContent")
+let compare = [];
 var products = JSON.parse(localStorage.getItem("data")) || [];
 var f = 'all';
 
@@ -40,6 +41,7 @@ if (products.length === 0) {
                     item: response[i].item,
                 })
             }
+            compare = structuredClone(products);
             localStorage.setItem("data",JSON.stringify(products))
             generateShop(products);
             
@@ -191,8 +193,8 @@ function update(id) {
     }, 180);
 };
 
-function delay (URL) {
-    setTimeout( function() { window.location.href = URL }, 20000);
+function patchAPI(URL) {
+    localStorage.clear();
     page = document.getElementsByTagName('body')[0];
     page.innerHTML = `
     <div>
@@ -200,25 +202,71 @@ function delay (URL) {
             <dotlottie-player src="https://lottie.host/00f5781f-7a7c-4254-91c1-5d58abf0f4fe/j0ppqxUpMa.json" background="transparent" speed="1" style="width: 300px; height: 300px" direction="1" playMode="normal" loop autoplay></dotlottie-player>
 		</div>
 	</div>
-	`;
-}
-
-function patchAPI() {
-    localStorage.clear();
-    products.forEach(obj => {
-        fetch(`${apiUrl}/${obj.apiID}`, {
-            method: "PATCH",
-            headers: {
-                "Content-Type": "application/json",
-                "x-apikey": apiKey,
-                "Cache-Control": "no-cache"
-            },
-            body: JSON.stringify({item: obj.item})
-            })
-        .then(response => response.json())
-        .then(data => {
-            console.log(data);
-        });
+	`
+      // Call the patchChangedObjects function and navigate to results.html once all patches are done
+    patchChangedObjects(products)
+    .then(() => {
+        // Navigate to results.html only when all patches are successful
+        window.location.href = URL;
     })
-}    
+    .catch(error => {
+        // Handle errors if any of the patches fail
+        console.error('Failed to patch changed objects:', error);
+    });
+}   
+  
+// Function to check if an object has changed
+function hasObjectChanged(object, referenceArray) {
+    // Find the corresponding object in the reference array
+    const referenceObject = referenceArray.find(item => item.id === object.id);
+  
+    // Implement your logic to compare the object with the reference object
+    // Return true if changed, false otherwise
+    // For simplicity, this example assumes a field named 'lastModified' to check for changes
+    return object.item !== referenceObject.item;
+}
+  
+  // Function to patch an individual object if it has changed
+async function patchObjectIfChanged(object) {
+    try {
+    // Check if the object has changed against the reference array
+    if (hasObjectChanged(object, compare)) {
+        const response = await fetch(`${apiUrl}/${object.apiID}`, {
+        method: 'PATCH',
+        headers: {
+            'Content-Type': 'application/json',
+            "x-apikey": apiKey,
+            "Cache-Control": "no-cache"
+        },
+        body: JSON.stringify({item: object.item}),
+        });
+
+        const result = await response.json();
+        console.log('Object patched successfully:', result);
+        return result;
+    } else {
+        console.log('Object has not changed. Skipped patching.');
+        return null; // Return null to indicate that the object was not patched
+    }
+    } catch (error) {
+    console.error('Error patching object:', error);
+    throw error;
+    }
+}
+  
+  // Function to patch only changed objects in the array
+async function patchChangedObjects(array) {
+    try {
+    const patchPromises = array.map(patchObjectIfChanged);
+    const results = await Promise.all(patchPromises);
     
+    // Filter out null results (objects that were not patched)
+    const patchedObjects = results.filter(result => result !== null);
+
+    console.log('All changed objects patched successfully:', patchedObjects);
+    return patchedObjects;
+    } catch (error) {
+    console.error('Error patching changed objects:', error);
+    throw error;
+    }
+}
