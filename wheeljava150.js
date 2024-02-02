@@ -68,6 +68,7 @@ document.addEventListener('DOMContentLoaded', function() {
   
     // Spin button event listener
     spinButton.addEventListener('click', function() {
+      let index;
       let duration = 5000; // Duration of spin in milliseconds
       let start = null;
       let spins = Math.random() * 10 + 5; // Random number of spins between 5 and 15
@@ -83,27 +84,24 @@ document.addEventListener('DOMContentLoaded', function() {
           window.requestAnimationFrame(rotate);
         } else {
           // Ensuring the animation stops at the correct angle
+          index = Math.floor(currentRotation / segmentAngle);
           currentRotation = ((Math.floor(currentRotation / (2 * Math.PI)) + 1) * 2 * Math.PI) - (index * segmentAngle) - (segmentAngle / 2);
           drawWheel();
           drawArrow();
           const prize = getPrize();
           alert("Congratulations! You won " + prize + "!");
+          window.location.href = "leaderboardform.html" + window.location.search;
         }
       }
       
       // Start spinning
       window.requestAnimationFrame(rotate);
-      
-      setTimeout( function() { 
-        window.location = "leaderboardform.html" + window.location.search;
-      }, 7000);
-      
     });
   
     // Initial draw
     var urlParams = new URLSearchParams(window.location.search);
     var bill = urlParams.get('bill');
-    let title = this.getElementById("title");
+    let title = document.getElementById("title");
     title.innerHTML = `Thank you for spending $${bill}!`;
     drawWheel();
     drawArrow();
