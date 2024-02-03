@@ -186,10 +186,7 @@ async function patchAPI() {
                 "x-apikey": apiKey,
                 "Cache-Control": "no-cache"
             },
-            body: JSON.stringify({
-                taken: true,
-                discount: score
-                })
+            body: JSON.stringify({discount: score})
             });
 
             const result = await response.json();

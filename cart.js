@@ -1,5 +1,8 @@
 const apiKey = "65b665611aac406df1278a6f";
-const apiUrl = 'https://products-aa44.restdb.io/rest/basket';
+const basketApiUrl = 'https://products-aa44.restdb.io/rest/basket';
+const quizApiUrl = 'https://products-aa44.restdb.io/rest/quiz';
+const quizObjId = '65bdec96649d301400000044';
+
 
 // variables for loading div
 let loading = document.getElementById("loading");
@@ -9,14 +12,17 @@ let body = document.getElementById('content')
 let foot = document.getElementById('foot')
 
 // for total price
-let total = document.getElementById('total');
+var total = document.getElementById('total');
 var bill = 0;
 
 // api use (getting cart items)
 var cartArray = JSON.parse(localStorage.getItem("data")) || [];
 // to be used to store og item data
 // used to check whether object in cartArray has been chanegd and needs to be patched to API
-let compare = JSON.parse(localStorage.getItem("compare")) || []; 
+var compare = JSON.parse(localStorage.getItem("compare")) || []; 
+// used to get discount from quiz
+var discountRate = localStorage.getItem("discount") || 1; 
+
 
 // cart area to add items
 let shoppingCart = document.getElementById('cart-items');
@@ -31,7 +37,7 @@ if (cartArray.length === 0) {
     foot.classList.add('hidden');
 
     // fetching cart items
-    fetch(apiUrl, {
+    fetch(basketApiUrl, {
         method: 'GET',
         headers: {
           'Content-Type': 'application/json',
@@ -59,15 +65,22 @@ if (cartArray.length === 0) {
             localStorage.setItem("data",JSON.stringify(cartArray))
             localStorage.setItem("compare",JSON.stringify(compare))
 
-            // fills cart are with items
-            generateCartItems();
+            getDiscount()
+            .then(() => {
+                // fills cart are with items
+                generateCartItems();
 
-            // hide loading div
-            loading.classList.add('hidden');
-            loadingIcon.classList.add('hidden');
-            nav.classList.remove('hidden');
-            body.classList.remove('hidden');
-            foot.classList.remove('hidden');
+                // hide loading div
+                loading.classList.add('hidden');
+                loadingIcon.classList.add('hidden');
+                nav.classList.remove('hidden');
+                body.classList.remove('hidden');
+                foot.classList.remove('hidden');
+            })
+            .catch(error => {
+                // Handle errors if any of the patches fail
+                console.error('Failed:', error);
+            });
     })
         .catch(error => {
           console.error('Error:', error);
@@ -77,6 +90,27 @@ if (cartArray.length === 0) {
 else {
     generateCartItems();
 }
+
+async function getDiscount() {
+    try {
+        const response = await fetch(`${quizApiUrl}/${quizObjId}`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            "x-apikey": apiKey,
+            "Cache-Control": "no-cache"
+            }
+        });
+        const result = await response.json();
+        discountRate = 1 - (result.discount / 100);
+        localStorage.setItem("discount",discountRate)
+        console.log(discountRate);
+    } catch (error) {
+        console.error('Error:', error);
+        throw error;
+    }
+}
+
 
 // fills cart are with items
 function generateCartItems() {
@@ -113,11 +147,15 @@ function generateCartItems() {
         } 
     })
 
-    bill = bill.toFixed(2) // making sure bill is $xx.xx
+    bill = (bill * discountRate).toFixed(2) // making sure bill is $xx.xx
 
     if (hasItems) { // if cart has items, fill html with items, display total bill
         shoppingCart.innerHTML = content;
-        total.innerHTML = `TOTAL: $${bill}`
+        if (discountRate < 1) {
+            total.innerHTML = `TOTAL: $${bill} (${Math.round((1 - discountRate) * 100)}% off)`
+        } else {
+            total.innerHTML = `TOTAL: $${bill}`
+        }
     } else { // if empty, display cart empty message, display total bill is zero
         shoppingCart.innerHTML = `
         <div class="empty">
@@ -211,14 +249,14 @@ function checkout() {
     if (hasItems){ // if cart has items, success and navigate to next page
         // using query parameters to send bill variable to wheel page
         if (bill >= 150) {  // $150 wheel
-            patchAPI("wheel150.html?bill=" + encodeURIComponent(bill));
+            checkoutLink("wheel150.html?bill=" + encodeURIComponent(bill));
         } else if (bill >= 100) { // $100 wheel
-            patchAPI("wheel100.html?bill=" + encodeURIComponent(bill));
+            checkoutLink("wheel100.html?bill=" + encodeURIComponent(bill));
         } else if (bill >= 50) { // $50 wheel
-            patchAPI("wheel50.html?bill=" + encodeURIComponent(bill));
+            checkoutLink("wheel50.html?bill=" + encodeURIComponent(bill));
         }
         else { // no wheel, straight to leaderboard form
-            patchAPI("leaderboardform.html?bill=" + encodeURIComponent(bill));
+            checkoutLink("leaderboardform.html?bill=" + encodeURIComponent(bill));
         }
     } else { // if cart is empty, cannot checkout, do nothing
         return;
@@ -241,6 +279,7 @@ function patchAPI(URL) {
 		</div>
 	</div>
 	`
+
     // patches any products that have changed data
     patchChangedObjects(cartArray)
     .then(() => {
@@ -252,7 +291,6 @@ function patchAPI(URL) {
     });
 }   
   
-
 function hasObjectChanged(object, referenceArray) {
     // finds the corresponding object in reference array
     const referenceObject = referenceArray.find(item => item.id === object.id);
@@ -266,7 +304,7 @@ function hasObjectChanged(object, referenceArray) {
 async function patchObjectIfChanged(object) {
     try {
         if (hasObjectChanged(object, compare)) { // if object has changed, patch to API
-            const response = await fetch(`${apiUrl}/${object.apiID}`, {
+            const response = await fetch(`${basketApiUrl}/${object.apiID}`, {
             method: 'PATCH',
             headers: {
                 'Content-Type': 'application/json',
@@ -305,4 +343,55 @@ async function patchChangedObjects(array) {
         console.error('Error patching changed objects:', error);
         throw error;
     }
+}
+
+async function patchDiscount() {
+    try {
+        const response = await fetch(`${quizApiUrl}/${quizObjId}`, {
+        method: 'PATCH',
+        headers: {
+            'Content-Type': 'application/json',
+            "x-apikey": apiKey,
+            "Cache-Control": "no-cache"
+        },
+        body: JSON.stringify({discount: 0}),
+        });
+
+        const result = await response.json();
+        console.log('Object patched successfully:', result);
+        return result;
+    } catch (error) {
+        console.error('Error patching object:', error);
+        throw error;
+    }
+}
+
+function checkoutLink(URL) {
+    localStorage.clear();
+
+    // while API is patching, show loading screen
+    page = document.getElementsByTagName('body')[0];
+    page.innerHTML = `
+    <div>
+		<div class="animation-center">
+            <dotlottie-player src="https://lottie.host/00f5781f-7a7c-4254-91c1-5d58abf0f4fe/j0ppqxUpMa.json" background="transparent" speed="1" style="width: 300px; height: 300px" direction="1" playMode="normal" loop autoplay></dotlottie-player>
+		</div>
+	</div>
+	`
+
+    patchDiscount()
+    .then(() => {
+        // patches any products that have changed data
+        patchChangedObjects(cartArray)
+        .then(() => {
+            // go to the entered URL once patches are done
+            window.location.href = URL;
+        })
+        .catch(error => {
+            console.error('Failed to patch changed objects:', error);
+        });
+    })
+    .catch(error => {
+        console.error('Failed to patch changed objects:', error);
+    });
 }
