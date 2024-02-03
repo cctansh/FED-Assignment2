@@ -1,35 +1,35 @@
 const questions = [
     {
         question:  "What is the name of this product?",
-        image: "img/cardigan.png",
+        image: "img/ring4.jpeg",
         answers: [
-            { text: "Knitted short jacket", correct: true},
-            { text: "Rib-knit cardigan", correct: false},
-            { text: "Striped cardigan with jewel button", correct: false},
-            { text: "Buttoned knit cardigan", correct: false},
+            { text: "Silver Tiara Ring", correct: true},
+            { text: "Silver Crown Ring", correct: false},
+            { text: "Silver Studded Tiara Ring", correct: false},
+            { text: "Silver Studded Crown Ring", correct: false},
 
 
         ]
     },
     {
-        question:  "Guess the price of this necklace",
-        image: "img/necklace.png",
+        question:  "What is the price of this bracelet?",
+        image: "img/bracelet1.jpeg",
         answers: [
-            { text: "$14.90", correct: false},
-            { text: "$17.50", correct: false},
-            { text: "$20.90", correct: true},
-            { text: "$9.90", correct: false},
+            { text: "$40.99", correct: false},
+            { text: "$45.99", correct: false},
+            { text: "$44.99", correct: true},
+            { text: "$49.99", correct: false},
 
 
         ]
     },
     {
-        question:  "Where is our Flagship store located?",
+        question:  "What is the name of our brand?",
         answers: [
-            { text: "10 Marine Parade Rd, #01-53", correct: false},
-            { text: "2 Bayfront Avenue The Shoppes at Marina Bay Sands, #L3-28", correct: false},
-            { text: "53 Clemenceau Ave, #01-18 UE Square", correct: false},
-            { text: "10 Raffles Boulevard 01-79, Millenia Walk", correct: true},
+            { text: "Crown Jewelry Inc.", correct: false},
+            { text: "Star Jewels Inc.", correct: false},
+            { text: "Crown Jewels Inc.", correct: false},
+            { text: "Star Jewelry Inc.", correct: true},
 
 
         ]
@@ -37,10 +37,10 @@ const questions = [
     {
         question:  "What year was our brand founded?",
         answers: [
-            { text: "2001", correct: false},
-            { text: "1995", correct: true},
-            { text: "2010", correct: false},
-            { text: "1989", correct: false},
+            { text: "2008", correct: false},
+            { text: "2024", correct: true},
+            { text: "2013", correct: false},
+            { text: "2019", correct: false},
 
 
         ]
@@ -83,7 +83,7 @@ function showQuestion(){
     if (currentQuestion.image) {
         const imageElement = document.createElement("img");
         imageElement.src = currentQuestion.image;
-        imageElement.classList.add("question-image"); // You might want to style this
+        imageElement.classList.add("question-image"); 
         questionElement.appendChild(imageElement); // Append image to the question element or another preferred location
     }
 
