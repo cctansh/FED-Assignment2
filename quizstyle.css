@@ -5,6 +5,17 @@
     font-family: 'Oswald', sans-serif;
 }
 
+.animation-center{  
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
+    background-color: white;
+}
+
 body {
     background: url(img/quizbg.png) no-repeat center center fixed; 
 }

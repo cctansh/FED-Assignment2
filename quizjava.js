@@ -1,3 +1,7 @@
+const apiKey = "65b665611aac406df1278a6f";
+const apiUrl = 'https://products-aa44.restdb.io/rest/quiz';
+const objId = '65bdec96649d301400000044';
+
 const questions = [
     {
         question:  "What is the name of this product?",
@@ -153,11 +157,46 @@ function handleNextButton(){
 nextButton.addEventListener("click", ()=>{
     if(currentQuestionIndex < questions.length){
         handleNextButton();
-    }else{
-        // add API here
-        window.location.href = 'index.html';
+    } else {
+        page = document.getElementsByTagName('body')[0];
+        page.innerHTML = `
+        <div class="animation-center">
+            <dotlottie-player src="https://lottie.host/00f5781f-7a7c-4254-91c1-5d58abf0f4fe/j0ppqxUpMa.json" background="transparent" speed="1" style="width: 300px; height: 300px" direction="1" playMode="normal" loop autoplay></dotlottie-player>
+        </div>
+        `
+        patchAPI()
+        .then(() => {
+            // Navigate to results.html only when all patches are successful
+            window.location.href = 'index.html';
+        })
+        .catch(error => {
+            // Handle errors if any of the patches fail
+            console.error('Failed to patch:', error);
+        });
     }
-    
 });
 startQuiz();
 
+async function patchAPI() {
+    try {
+            const response = await fetch(`${apiUrl}/${objId}`, {
+            method: 'PATCH',
+            headers: {
+                'Content-Type': 'application/json',
+                "x-apikey": apiKey,
+                "Cache-Control": "no-cache"
+            },
+            body: JSON.stringify({
+                taken: true,
+                discount: score
+                })
+            });
+
+            const result = await response.json();
+            console.log('Object patched successfully:', result);
+            return result;
+    } catch (error) {
+        console.error('Error patching object:', error);
+        throw error;
+    }
+}
