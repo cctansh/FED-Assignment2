@@ -98,15 +98,18 @@ footer .brand {
     height:100%;
 }
 
+.carousel-caption {
+    display: block !important;
+}
+
 .carousel-item {
     background-size: cover;
 }
 
 .carousel-item-bg {
-    background-color:rgba(88, 78, 72, 0.5);
+    background-color:rgba(90, 85, 83, 0.7);
     width: auto;
-    padding-top: 16px;
-    padding-bottom: 16px;
+    padding: 16px;
 }
 
 .carousel-item-bg h4 {
@@ -123,6 +126,10 @@ footer .brand {
     border-radius: 0;
 }
 
+.leaderboard-btn {
+    border-radius: 0;
+}
+
 .bg1 {
     background: url(img/bg.png) no-repeat center center fixed; 
 }
@@ -130,7 +137,10 @@ footer .brand {
     background: url(img/bg2.png) no-repeat center center fixed; 
 }
 .bg3 {
-    background: url(img/bg3.png) no-repeat center center fixed; 
+    background: url(img/bg3.gif) no-repeat center center fixed; 
+}
+.bg4 {
+    background: url(img/bg4.png) no-repeat center center fixed; 
 }
 
 .carousel .carousel-indicators button {
@@ -157,6 +167,7 @@ label {
     padding-top: 8px;
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
     gap: 16px;
     align-items: center;
 }
@@ -167,6 +178,10 @@ label {
 
 #sort {
     width:150px;
+}
+
+#currency {
+    width: 80px;
 }
 
 /* product/cart items */
