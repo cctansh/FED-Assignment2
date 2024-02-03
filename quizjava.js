@@ -69,7 +69,7 @@ let score = 0;
 function startQuiz(){
     currentQuestionIndex = 0;
     score = 0;
-    nextButton.innerHTML = "Next";
+    nextButton.innerHTML = "NEXT";
     showQuestion();
 }
 
@@ -136,7 +136,7 @@ function showScore(){
     } else {
         questionElement.innerHTML += `<p>Thanks for playing! Try again for a discount.</p>`;
     }
-    nextButton.innerHTML = "Play Again";
+    nextButton.innerHTML = "DONE";
     nextButton.style.display = "block";
 }
 
@@ -154,7 +154,8 @@ nextButton.addEventListener("click", ()=>{
     if(currentQuestionIndex < questions.length){
         handleNextButton();
     }else{
-        startQuiz();
+        // add API here
+        window.location.href = 'index.html';
     }
     
 });

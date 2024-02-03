@@ -6,7 +6,7 @@
 }
 
 body {
-    background: url(img/bg.png) no-repeat center center fixed; 
+    background: url(img/quizbg.png) no-repeat center center fixed; 
 }
 
 .app {
@@ -59,9 +59,10 @@ body {
 }
 
 #next-btn {
-    background: #001e4d;
+    background: #333;
     color: #fff;
-    font-weight: 500;
+    font-size: 20px;
+    font-weight: 300;
     width: 150px;
     border: 0;
     padding: 10px;
@@ -69,6 +70,10 @@ body {
     border-radius: 4px;
     cursor: pointer;
     display: none;
+}
+
+#next-btn:hover {
+    background: #5b5b5b;
 }
 
 .correct {
