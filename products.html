@@ -12,11 +12,13 @@
     <link href="style.css" rel="stylesheet">
 </head>
 <body>
+    <!-- loading div (shown while API is loading in, made hidden again afterward) -->
   <div id="loading" class="hidden">
     <div id="loading-icon" class="animation-center hidden">
       <dotlottie-player src="https://lottie.host/00f5781f-7a7c-4254-91c1-5d58abf0f4fe/j0ppqxUpMa.json" background="transparent" speed="1" style="width: 300px; height: 300px" direction="1" playMode="normal" loop autoplay></dotlottie-player>
     </div>
   </div>
+
   <nav id="navbar" class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
     <div class="container-fluid">
       <img class="brand" src="img/icon.png" alt="Icon">
@@ -40,12 +42,14 @@
       </div>
     </div>
   </nav>
-  <main id="content" class="padNav container text-center">
-    <div class="row productHeader">
+
+  <main id="content" class="pad-nav container text-center">
+    <div class="row">
       <div class="col">
-        <div class="pageTitle">
+        <div class="page-title">
           <h1>OUR PRODUCTS</h1>
         </div>
+
         <div class="filters text-start">
           <div>
             <label for="cat">Categories:</label>
@@ -60,9 +64,9 @@
           <div>
             <label for="sort">Sort by Price:</label>
             <select id="sort" class="form-select">
-              <option onclick="Default()">Default</option>
-              <option onclick="LowToHigh()">Low to High</option>
-              <option onclick="HighToLow()">High to Low</option>
+              <option onclick="sortDefault()">Default</option>
+              <option onclick="lowToHigh()">Low to High</option>
+              <option onclick="highToLow()">High to Low</option>
             </select> 
           </div>
 
@@ -78,7 +82,7 @@
         </div>
       </div>
     </div>
-    <div class="row" id="productContent">
+    <div class="row" id="product-content">
       
     </div>
   </main>

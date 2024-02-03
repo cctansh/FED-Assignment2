@@ -10,7 +10,7 @@ let foot = document.getElementById('foot')
 var bill = 0;
 
 let total = document.getElementById('total');
-let shoppingCart = document.getElementById('cartItems');
+let shoppingCart = document.getElementById('cart-items');
 var cartArray = JSON.parse(localStorage.getItem("data")) || [];
 let compare = [];
 
@@ -72,15 +72,15 @@ function generateCartItems() {
             bill += obj.price * obj.item;
             content = `
             ${content}
-            <div id=product-id-${obj.id} class="cartItem text-center">
+            <div id=product-id-${obj.id} class="cart-item text-center">
                 <i onclick="trashItem(${obj.id})" class="bi bi-x-circle trash"></i>
-                <img class="cartImg" src="${obj.img}">
+                <img class="cart-img" src="${obj.img}">
                 <div class="details">
-                    <div class="pNameDiv">
-                        <h3 class="pName">${obj.name}</h3>
+                    <div class="p-name-div">
+                        <h3 class="p-name">${obj.name}</h3>
                     </div>
-                    <div class="pPriceDiv">
-                        <h4 id="pPrice" class="pPrice">$${(obj.price * obj.item).toFixed(2)}</h4>
+                    <div class="p-price-div">
+                        <h4 class="p-price">$${(obj.price * obj.item).toFixed(2)}</h4>
                     </div>
                     <div class="quantity-buttons">
                             <i id=minus-${obj.id} onclick="decrement(${obj.id})" class="bi bi-dash-lg"></i>
@@ -101,7 +101,7 @@ function generateCartItems() {
         shoppingCart.innerHTML = `
         <div class="empty">
         <h1>Your cart is empty.</h1>
-        <button type="button" class="btn btn-outline-dark clearCart" onclick="patchAPI();delay('products.html');">VIEW PRODUCTS</button>
+        <button type="button" class="btn btn-outline-dark clear-cart" onclick="patchAPI('products.html');">VIEW PRODUCTS</button>
         </div>
         `
         total.innerHTML = `TOTAL: $00.00`
@@ -156,7 +156,7 @@ function trashItem(id) {
     localStorage.setItem("data",JSON.stringify(cartArray))
 }
 
-function ClearCart() {
+function clearCart() {
     cartArray.forEach(obj => {
         obj.item = 0;
     })
@@ -177,7 +177,7 @@ function delay (URL) {
 	`;
 }
 
-function Checkout() {
+function checkout() {
     cartArray.forEach(obj => {
         obj.item = 0;
     })

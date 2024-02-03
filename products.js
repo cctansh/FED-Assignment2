@@ -7,7 +7,7 @@ let nav = document.getElementById("navbar");
 let body = document.getElementById('content')
 let foot = document.getElementById('foot')
 
-let shop = document.getElementById("productContent")
+let shop = document.getElementById("product-content")
 let compare = JSON.parse(localStorage.getItem("compare")) || [];
 var currency = JSON.parse(localStorage.getItem("currency")) || [];
 var products = JSON.parse(localStorage.getItem("data")) || [];
@@ -107,13 +107,13 @@ function generateShop(a) {
         }
         return `
         <div id=product-id-${x.id} class="col-12 col-md-4 col-lg-3 item ${x.category}">
-            <img class="productImg" src="${x.img}">
+            <img class="product-img" src="${x.img}">
             <div class="details text-center">
-                <div class="pNameDiv">
-                    <h3 class="pName">${x.name}</h3>
+                <div class="p-name-div">
+                    <h3 class="p-name">${x.name}</h3>
                 </div>
-                <div class="pPriceDiv">
-                    <h4 class="pPrice">${displayprice}</h4>
+                <div class="p-price-div">
+                    <h4 class="p-price">${displayprice}</h4>
                 </div>
                 <div class="quantity-buttons">
                     <i id=minus-${x.id} onclick="decrement(${x.id})" class="bi bi-dash-lg"></i>
@@ -126,23 +126,23 @@ function generateShop(a) {
     }).join(""));
 }
 
-function Default() {
+function sortDefault() {
     generateShop(products)
-    CheckFilter();
+    checkFilter();
 }
 
-function LowToHigh() {
+function lowToHigh() {
     let sortedProducts = structuredClone(products);
     sortedProducts.sort((a,b) => a.price - b.price);
     generateShop(sortedProducts);
-    CheckFilter();
+    checkFilter();
 }
 
-function HighToLow() {
+function highToLow() {
     let sortedProducts = structuredClone(products);
     sortedProducts.sort((a,b) => b.price - a.price);
     generateShop(sortedProducts);
-    CheckFilter();
+    checkFilter();
 }
 
 function filterCat(c) {
@@ -168,7 +168,7 @@ function filterCat(c) {
     }
 }
 
-function CheckFilter() {
+function checkFilter() {
     switch (f) {
         case "all":
             filterCat(f);
@@ -273,18 +273,14 @@ function patchAPI(URL) {
     });
 }   
   
-// Function to check if an object has changed
 function hasObjectChanged(object, referenceArray) {
     // Find the corresponding object in the reference array
     const referenceObject = referenceArray.find(item => item.id === object.id);
   
-    // Implement your logic to compare the object with the reference object
     // Return true if changed, false otherwise
-    // For simplicity, this example assumes a field named 'lastModified' to check for changes
     return object.item !== referenceObject.item;
 }
   
-  // Function to patch an individual object if it has changed
 async function patchObjectIfChanged(object) {
     try {
     // Check if the object has changed against the reference array

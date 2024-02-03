@@ -52,7 +52,7 @@ function printLeaderboard() {
     let text = '';
     for (var i = 1; i <= usersData.length; i++) {
         text = `${text}
-            <div class="boardRow row${i}">
+            <div class="board-row row${i}">
                 <div class="rank">
                     ${i}
                 </div>

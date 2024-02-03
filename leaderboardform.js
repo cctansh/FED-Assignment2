@@ -139,9 +139,9 @@ function validateLogin() {
     }
 }
 
-function GoToForm() {
-    let cover = document.getElementById("coverpage");
-    let regform = document.getElementById("registerform");
+function goToForm() {
+    let cover = document.getElementById("cover-page");
+    let regform = document.getElementById("register-form");
 
     cover.classList.add('hidden');
     regform.classList.remove('hidden');

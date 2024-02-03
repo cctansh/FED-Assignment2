@@ -12,11 +12,13 @@
     <link href="style.css" rel="stylesheet">
 </head>
 <body>
+  <!-- loading div (shown while API is loading in, made hidden again afterward) -->
   <div id="loading" class="hidden">
     <div id="loading-icon" class="animation-center hidden">
       <dotlottie-player src="https://lottie.host/00f5781f-7a7c-4254-91c1-5d58abf0f4fe/j0ppqxUpMa.json" background="transparent" speed="1" style="width: 300px; height: 300px" direction="1" playMode="normal" loop autoplay></dotlottie-player>
     </div>
   </div>
+
   <nav id="navbar" class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
     <div class="container-fluid">
       <img class="brand" src="img/icon.png" alt="Icon">
@@ -40,18 +42,19 @@
       </div>
     </div>
   </nav>
-  <main id="content" class="padNav container text-start">
-    <div class="cartTitle">
+
+  <main id="content" class="pad-nav container text-start">
+    <div class="cart-title">
         <h1>CART</h1>
-        <button type="button" class="btn btn-outline-dark clearCart" onclick="ClearCart()">CLEAR CART</button>
+        <button type="button" class="btn btn-outline-dark clear-cart" onclick="clearCart()">CLEAR CART</button>
     </div>
-    <div class="cartArea">
-        <div id="cartItems" class="cartItems">
+    <div class="cart-area">
+        <div id="cart-items" class="cart-items">
             
         </div>
-        <div class="checkoutArea">
+        <div class="checkout-area">
             <div id="total" class="total text-nowrap"></div>
-            <button type="button" class="btn btn-dark checkoutBtn" onclick="Checkout()">CHECKOUT</a> 
+            <button type="button" class="btn btn-dark checkout-btn" onclick="checkout()">CHECKOUT</a> 
         </div>
     </div>
   </main>

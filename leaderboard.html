@@ -12,11 +12,13 @@
     <link href="style.css" rel="stylesheet">
 </head>
 <body>
+    <!-- loading div (shown while API is loading in, made hidden again afterward) -->
   <div id="loading" class="hidden">
     <div id="loading-icon" class="animation-center hidden">
       <dotlottie-player src="https://lottie.host/00f5781f-7a7c-4254-91c1-5d58abf0f4fe/j0ppqxUpMa.json" background="transparent" speed="1" style="width: 300px; height: 300px" direction="1" playMode="normal" loop autoplay></dotlottie-player>
     </div>
   </div>
+  
   <nav id="navbar" class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
     <div class="container-fluid">
       <img class="brand" src="img/icon.png" alt="Icon">
@@ -40,13 +42,14 @@
       </div>
     </div>
   </nav>
-  <main id="content" class="padNav container text-center flexbody">
-    <div class="pageTitle">
+
+  <main id="content" class="pad-nav container text-center flex-body">
+    <div class="page-title">
         <h1>LEADERBOARD</h1>
         <p>Our top 3 spenders this month will get: iPad Pro</p>
     </div>
     <div class="board">
-        <div class="boardRow boardHead">
+        <div class="board-row board-head">
             <div class="rank">
                 Rank
             </div>
@@ -62,9 +65,10 @@
         </div>
     </div>
     <div class="animation">
-        <dotlottie-player class="boardlottie" src="https://lottie.host/a6ffcd53-5ef8-4c15-945c-b60f5bfe2ae5/3aL2fwHoUp.json" background="transparent" speed="1" style="width: 15%; height: 15%" direction="1" playMode="normal" loop autoplay></dotlottie-player>
+        <dotlottie-player src="https://lottie.host/a6ffcd53-5ef8-4c15-945c-b60f5bfe2ae5/3aL2fwHoUp.json" background="transparent" speed="1" style="width: 15%; height: 15%" direction="1" playMode="normal" loop autoplay></dotlottie-player>
     </div>
   </main>
+
   <footer id="foot">
     <div>
       <img class="brand" src="img/icon.png" alt="Icon">
@@ -76,6 +80,7 @@
       <a href="index.html"><img src="img/twt.png"></a> 
     </div>
   </footer>
+
   <script src="js/bootstrap.bundle.js"></script>
   <script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script>
   <script src="leaderboard.js"></script>
