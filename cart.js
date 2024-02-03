@@ -198,21 +198,30 @@ function clearCart() {
 }
 
 function checkout() {
+    let hasItems = false; // bool to check whether cart is empty
+
     // sets all item quantities to zero
     cartArray.forEach(obj => {
-        obj.item = 0;
+        if (obj.item > 0) { // only runs if the specified product quantity > 0
+            hasItems = true; // as cart has items, set to true
+            obj.item = 0;
+        }
     })
 
-    // using query parameters to send bill variable to wheel page
-    if (bill >= 150) {  // $150 wheel
-        patchAPI("wheel150.html?bill=" + encodeURIComponent(bill));
-    } else if (bill >= 100) { // $100 wheel
-        patchAPI("wheel100.html?bill=" + encodeURIComponent(bill));
-    } else if (bill >= 50) { // $50 wheel
-        patchAPI("wheel50.html?bill=" + encodeURIComponent(bill));
-    }
-    else { // no wheel, straight to leaderboard form
-        patchAPI("leaderboardform.html?bill=" + encodeURIComponent(bill));
+    if (hasItems){ // if cart has items, success and navigate to next page
+        // using query parameters to send bill variable to wheel page
+        if (bill >= 150) {  // $150 wheel
+            patchAPI("wheel150.html?bill=" + encodeURIComponent(bill));
+        } else if (bill >= 100) { // $100 wheel
+            patchAPI("wheel100.html?bill=" + encodeURIComponent(bill));
+        } else if (bill >= 50) { // $50 wheel
+            patchAPI("wheel50.html?bill=" + encodeURIComponent(bill));
+        }
+        else { // no wheel, straight to leaderboard form
+            patchAPI("leaderboardform.html?bill=" + encodeURIComponent(bill));
+        }
+    } else { // if cart is empty, cannot checkout, do nothing
+        return;
     }
 }
 
