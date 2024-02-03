@@ -8,9 +8,11 @@ let body = document.getElementById('content')
 let foot = document.getElementById('foot')
 
 let shop = document.getElementById("productContent")
-let compare = [];
+let compare = JSON.parse(localStorage.getItem("compare")) || [];
+var currency = JSON.parse(localStorage.getItem("currency")) || [];
 var products = JSON.parse(localStorage.getItem("data")) || [];
 var f = 'all';
+var p = 'SGD';
 
 if (products.length === 0) {
     loading.classList.remove('hidden');
@@ -43,8 +45,11 @@ if (products.length === 0) {
             }
             compare = structuredClone(products);
             localStorage.setItem("data",JSON.stringify(products))
+            localStorage.setItem("compare",JSON.stringify(compare))
             generateShop(products);
-            
+
+            getCurrencyArray();
+
             loading.classList.add('hidden');
             loadingIcon.classList.add('hidden');
             nav.classList.remove('hidden');
@@ -59,10 +64,47 @@ else {
     generateShop(products)
 }
 
-
+function getCurrencyArray() {
+    fetch(`https://v6.exchangerate-api.com/v6/94da67b3ea4623bed243d989/latest/SGD`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-apikey': '94da67b3ea4623bed243d989',
+          "Cache-Control": "no-cache"
+        },
+    })
+        .then(response => response.json())
+        .then(response => {
+            currency.push({
+                country: 'MYR',
+                rate: response.conversion_rates.MYR
+            });
+            currency.push({
+                country: 'IDR',
+                rate: response.conversion_rates.IDR
+            });
+            localStorage.setItem("currency",JSON.stringify(currency))
+            console.log(currency);
+    })
+        .catch(error => {
+          console.error('Error:', error);
+    });
+}
 
 function generateShop(a) {
     return (shop.innerHTML= a.map((x)=>{
+        var displayprice;
+        if (p == 'SGD') {
+            displayprice = `$${x.price}`;
+        } else if (p == 'MYR') {
+            let search = currency.find(x => x.country == 'MYR');
+            let rate = search.rate;
+            displayprice = `RM${(x.price * rate).toFixed(2)}`;
+        } else if (p == 'IDR') {
+            let search = currency.find(x => x.country == 'IDR');
+            let rate = search.rate;
+            displayprice = `Rp${(x.price * rate).toFixed(2)}`;
+        }
         return `
         <div id=product-id-${x.id} class="col-12 col-md-4 col-lg-3 item ${x.category}">
             <img class="productImg" src="${x.img}">
@@ -71,7 +113,7 @@ function generateShop(a) {
                     <h3 class="pName">${x.name}</h3>
                 </div>
                 <div class="pPriceDiv">
-                    <h4 class="pPrice">$${x.price}</h4>
+                    <h4 class="pPrice">${displayprice}</h4>
                 </div>
                 <div class="quantity-buttons">
                     <i id=minus-${x.id} onclick="decrement(${x.id})" class="bi bi-dash-lg"></i>
@@ -142,6 +184,22 @@ function CheckFilter() {
             break;
     }
 }
+
+function changeSGD() {
+    p = 'SGD';
+    generateShop(products);
+}
+
+function changeMYR() {
+    p = 'MYR';
+    generateShop(products);
+}
+
+function changeIDR() {
+    p = 'IDR';
+    generateShop(products);
+}
+
 
 function increment(id) {
     let selectedItem = id;

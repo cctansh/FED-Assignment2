@@ -47,21 +47,34 @@
           <h1>OUR PRODUCTS</h1>
         </div>
         <div class="filters text-start">
-          <label for="cat">Categories:</label>
-          <select id="cat" class="form-select">
-            <option onclick="filterCat('all')">All</option>
-            <option onclick="filterCat('ring')">Rings</option>
-            <option onclick="filterCat('necklace')">Necklaces</option>
-            <option onclick="filterCat('bracelet')">Bracelets</option>
-          </select> 
+          <div>
+            <label for="cat">Categories:</label>
+            <select id="cat" class="form-select">
+              <option onclick="filterCat('all')">All</option>
+              <option onclick="filterCat('ring')">Rings</option>
+              <option onclick="filterCat('necklace')">Necklaces</option>
+              <option onclick="filterCat('bracelet')">Bracelets</option>
+            </select> 
+          </div>
 
-          <label for="sort">Sort by Price:</label>
-          <select id="sort" class="form-select">
-            <option onclick="Default()">Default</option>
-            <option onclick="LowToHigh()">Low to High</option>
-            <option onclick="HighToLow()">High to Low</option>
-          </select> 
-          
+          <div>
+            <label for="sort">Sort by Price:</label>
+            <select id="sort" class="form-select">
+              <option onclick="Default()">Default</option>
+              <option onclick="LowToHigh()">Low to High</option>
+              <option onclick="HighToLow()">High to Low</option>
+            </select> 
+          </div>
+
+          <div>
+            <label for="currency">Display Currency:</label>
+            <select id="currency" class="form-select">
+              <option onclick="changeSGD()">SGD</option>
+              <option onclick="changeMYR()">MYR</option>
+              <option onclick="changeIDR()">IDR</option>
+            </select> 
+          </div>
+
         </div>
       </div>
     </div>
