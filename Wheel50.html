@@ -12,19 +12,22 @@
     <link href="style.css" rel="stylesheet">
 </head>
 <body>
-  <main>
-    <canvas id="wheelCanvas" width="400" height="400"></canvas>
-    <div class="spin-text">
-      <h3 id="title"></h3>
-      <p>We've given you the opportunity to spin the wheel and win attractive prizes!</p>
-      <button id="spin-button" type="button" class="btn btn-outline-dark btn-lg">SPIN</button>
+    <main>
+        <canvas id="wheelCanvas" width="400" height="400"></canvas>
+        <div class="spin-text">
+          <h3 id="title"></h3>
+          <p>We've given you the opportunity to spin the wheel and win attractive prizes!</p>
+          <button id="spin-button" type="button" class="btn btn-outline-dark btn-lg">SPIN</button>
+        </div>
+      </main>
+
+    <!-- The Modal -->
+    <div id="prizeModal" class="modal">
+        <div class="modal-content">
+            <span class="close-button">×</span>
+            <p id="prizeText">Yay! You have won a prize!</p>
+        </div>
     </div>
-  </main>
-  
-    <!-- Chart JS -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
-    <!-- Chart JS Plugin for displaying text over chart -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/chartjs-plugin-datalabels/2.1.0/chartjs-plugin-datalabels.min.js"></script>
     <!-- Script -->
     <script src="wheeljava50.js"></script>
 </body>

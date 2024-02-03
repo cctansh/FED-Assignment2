@@ -205,11 +205,11 @@ function checkout() {
 
     // using query parameters to send bill variable to wheel page
     if (bill >= 150) {  // $150 wheel
-        patchAPI("Wheel150.html?bill=" + encodeURIComponent(bill));
+        patchAPI("wheel150.html?bill=" + encodeURIComponent(bill));
     } else if (bill >= 100) { // $100 wheel
-        patchAPI("Wheel100.html?bill=" + encodeURIComponent(bill));
+        patchAPI("wheel100.html?bill=" + encodeURIComponent(bill));
     } else if (bill >= 50) { // $50 wheel
-        patchAPI("Wheel50.html?bill=" + encodeURIComponent(bill));
+        patchAPI("wheel50.html?bill=" + encodeURIComponent(bill));
     }
     else { // no wheel, straight to leaderboard form
         patchAPI("leaderboardform.html?bill=" + encodeURIComponent(bill));
