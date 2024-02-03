@@ -13,6 +13,7 @@ var currency = JSON.parse(localStorage.getItem("currency")) || [];
 var products = JSON.parse(localStorage.getItem("data")) || [];
 var f = 'all';
 var p = 'SGD';
+var s = 'default';
 
 if (products.length === 0) {
     loading.classList.remove('hidden');
@@ -129,6 +130,7 @@ function generateShop(a) {
 function sortDefault() {
     generateShop(products)
     checkFilter();
+    s = 'default';
 }
 
 function lowToHigh() {
@@ -136,6 +138,7 @@ function lowToHigh() {
     sortedProducts.sort((a,b) => a.price - b.price);
     generateShop(sortedProducts);
     checkFilter();
+    s = 'lth';
 }
 
 function highToLow() {
@@ -143,6 +146,7 @@ function highToLow() {
     sortedProducts.sort((a,b) => b.price - a.price);
     generateShop(sortedProducts);
     checkFilter();
+    s = 'htl';
 }
 
 function filterCat(c) {
@@ -187,17 +191,35 @@ function checkFilter() {
 
 function changeSGD() {
     p = 'SGD';
-    generateShop(products);
+    if (s == 'default') {
+        sortDefault();
+    } else if (s == 'lth') {
+        lowToHigh();
+    } else if (s == 'htl') {
+        highToLow();
+    }
 }
 
 function changeMYR() {
     p = 'MYR';
-    generateShop(products);
+    if (s == 'default') {
+        sortDefault();
+    } else if (s == 'lth') {
+        lowToHigh();
+    } else if (s == 'htl') {
+        highToLow();
+    }
 }
 
 function changeIDR() {
     p = 'IDR';
-    generateShop(products);
+    if (s == 'default') {
+        sortDefault();
+    } else if (s == 'lth') {
+        lowToHigh();
+    } else if (s == 'htl') {
+        highToLow();
+    }
 }
 
 
