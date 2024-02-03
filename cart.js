@@ -1,73 +1,107 @@
 const apiKey = "65b665611aac406df1278a6f";
 const apiUrl = 'https://products-aa44.restdb.io/rest/basket';
 
+let loading = document.getElementById("loading");
+let loadingIcon = document.getElementById("loading-icon");
+let nav = document.getElementById("navbar");
+let body = document.getElementById('content')
+let foot = document.getElementById('foot')
+
+var bill = 0;
+
 let total = document.getElementById('total');
-let shoppingCart = document.getElementById('cartItems');
-var cartArray = [];
+let shoppingCart = document.getElementById('cart-items');
+var cartArray = JSON.parse(localStorage.getItem("data")) || [];
+let compare = [];
 
-fetch(apiUrl, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-      'x-apikey': apiKey,
-      "Cache-Control": "no-cache"
-    },
-})
-    .then(response => response.json())
-    .then(response => {
+if (cartArray.length === 0) {
+    loading.classList.remove('hidden');
+    loadingIcon.classList.remove('hidden');
+    nav.classList.add('hidden');
+    body.classList.add('hidden');
+    foot.classList.add('hidden');
 
-        for (var i = 0; i < response.length; i++) {
-            cartArray.push({
-                apiID: response[i]._id,
-                id: response[i].id,
-                name: response[i].name,
-                price: response[i].price,
-                img: response[i].img,
-                category: response[i].category,
-                item: response[i].item,
-            })
-        }
-        generateCartItems();
-})
-    .catch(error => {
-      console.error('Error:', error);
-});
+    fetch(apiUrl, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'x-apikey': apiKey,
+          "Cache-Control": "no-cache"
+        },
+    })
+        .then(response => response.json())
+        .then(response => {
+    
+            for (var i = 0; i < response.length; i++) {
+                cartArray.push({
+                    apiID: response[i]._id,
+                    id: response[i].id,
+                    name: response[i].name,
+                    price: response[i].price,
+                    img: response[i].img,
+                    category: response[i].category,
+                    item: response[i].item,
+                })
+            }
+            compare = structuredClone(cartArray);
+            localStorage.setItem("data",JSON.stringify(cartArray))
+            generateCartItems();
+
+            loading.classList.add('hidden');
+            loadingIcon.classList.add('hidden');
+            nav.classList.remove('hidden');
+            body.classList.remove('hidden');
+            foot.classList.remove('hidden');
+    })
+        .catch(error => {
+          console.error('Error:', error);
+    });
+}
+else {
+    generateCartItems();
+}
 
 function generateCartItems() {
     let hasItems = false;
     var content = ""
+    bill = 0;
 
     cartArray.forEach(obj => {
         if (obj.item > 0) {
             hasItems = true;
+            bill += obj.price * obj.item;
             content = `
             ${content}
-            <div id=product-id-${obj.id} class="cartItem text-center">
-                <i onclick="trashItem(${obj.id})" class="bi bi-x-circle-fill trash"></i>
-                <img width="193px" height="250px" src="${obj.img}">
+            <div id=product-id-${obj.id} class="cart-item text-center">
+                <i onclick="trashItem(${obj.id})" class="bi bi-x-circle trash"></i>
+                <img class="cart-img" src="${obj.img}">
                 <div class="details">
-                    <h3 class="pName">${obj.name}</h3>
-                    <div class="price-quantity">
-                        <h4 id="pPrice" class="pPrice">$${(obj.price * obj.item).toFixed(2)}</h4>
-                        <div class="quantity-buttons">
+                    <div class="p-name-div">
+                        <h3 class="p-name">${obj.name}</h3>
+                    </div>
+                    <div class="p-price-div">
+                        <h4 class="p-price">$${(obj.price * obj.item).toFixed(2)}</h4>
+                    </div>
+                    <div class="quantity-buttons">
                             <i id=minus-${obj.id} onclick="decrement(${obj.id})" class="bi bi-dash-lg"></i>
                             <div id=${obj.id} class="quantity">${obj.item}</div>
                             <i id=plus-${obj.id} onclick="increment(${obj.id})" class="bi bi-plus-lg"></i>
-                        </div>
                     </div>
                 </div>
             </div>`
         } 
     })
 
+    bill = bill.toFixed(2)
+
     if (hasItems) {
         shoppingCart.innerHTML = content;
-        totalPrice();
+        total.innerHTML = `TOTAL: $${bill}`
     } else {
         shoppingCart.innerHTML = `
         <div class="empty">
         <h1>Your cart is empty.</h1>
-        <a href="products.html"><button type="button" class="btn btn-outline-dark clearCart">Go to Products</button></a>
+        <button type="button" class="btn btn-outline-dark clear-cart" onclick="patchAPI('products.html');">VIEW PRODUCTS</button>
         </div>
         `
         total.innerHTML = `TOTAL: $00.00`
@@ -87,9 +121,8 @@ function increment(id) {
 
     search.item += 1;
     
-    update(selectedItem.id);
     generateCartItems()
-    patchAPI(selectedItem.id);
+    localStorage.setItem("data",JSON.stringify(cartArray))
 }
 
 function decrement(id) {
@@ -108,24 +141,8 @@ function decrement(id) {
     } else {
         search.item -= 1;
     }
-    update(selectedItem.id);
     generateCartItems()
-    patchAPI(selectedItem.id);
-};
-
-function update(id) {
-    let search = cartArray.find(x => x.id == id);
-
-    var amt = document.getElementById(id); 
-
-    amt.classList.add('fade');
-  
-    setTimeout(function(){
-        amt.innerHTML = search.item;
-        amt.classList.remove('fade');
-    }, 180);
-
-    totalPrice();
+    localStorage.setItem("data",JSON.stringify(cartArray))
 };
 
 function trashItem(id) {
@@ -136,43 +153,121 @@ function trashItem(id) {
     search.item = 0;
     
     generateCartItems();
-    patchAPI(selectedItem.id);
+    localStorage.setItem("data",JSON.stringify(cartArray))
 }
 
-function ClearCart() {
+function clearCart() {
     cartArray.forEach(obj => {
         obj.item = 0;
-        patchAPI(obj.id)
     })
 
     generateCartItems();
+    localStorage.setItem("data",JSON.stringify(cartArray))
 }
 
-function totalPrice() {
-    let amount = cartArray.map((x) => {
-        return x.item * x.price;
-    }).reduce((x,y)=>x+y, 0)
-    total.innerHTML = `TOTAL: $${amount.toFixed(2)}`
+function delay (URL) {
+    setTimeout( function() { window.location.href = URL }, 20000);
+    page = document.getElementsByTagName('body')[0];
+    page.innerHTML = `
+    <div>
+		<div class="animation-center">
+            <dotlottie-player src="https://lottie.host/00f5781f-7a7c-4254-91c1-5d58abf0f4fe/j0ppqxUpMa.json" background="transparent" speed="1" style="width: 300px; height: 300px" direction="1" playMode="normal" loop autoplay></dotlottie-player>
+    	</div>
+	</div>
+	`;
 }
 
-function patchAPI(id) {
-    console.log(cartArray);
+function checkout() {
+    cartArray.forEach(obj => {
+        obj.item = 0;
+    })
 
-    let search = cartArray.find(x => x.id == id)
+    if (bill >= 150) {
+        patchAPI("Wheel150.html?bill=" + encodeURIComponent(bill));
+    } else if (bill >= 100) {
+        patchAPI("Wheel100.html?bill=" + encodeURIComponent(bill));
+    } else if (bill >= 50) {
+        patchAPI("Wheel50.html?bill=" + encodeURIComponent(bill));
+    }
+    else {
+        patchAPI("leaderboardform.html?bill=" + encodeURIComponent(bill));
+    }
+}
 
-    var settings = {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-          "x-apikey": apiKey,
-          "Cache-Control": "no-cache"
-        },
-        body: JSON.stringify(search)
-      }
+function patchAPI(URL) {
+    localStorage.clear();
+    page = document.getElementsByTagName('body')[0];
+    page.innerHTML = `
+    <div>
+		<div class="animation-center">
+            <dotlottie-player src="https://lottie.host/00f5781f-7a7c-4254-91c1-5d58abf0f4fe/j0ppqxUpMa.json" background="transparent" speed="1" style="width: 300px; height: 300px" direction="1" playMode="normal" loop autoplay></dotlottie-player>
+		</div>
+	</div>
+	`
+      // Call the patchChangedObjects function and navigate to results.html once all patches are done
+    patchChangedObjects(cartArray)
+    .then(() => {
+        // Navigate to results.html only when all patches are successful
+        window.location.href = URL;
+    })
+    .catch(error => {
+        // Handle errors if any of the patches fail
+        console.error('Failed to patch changed objects:', error);
+    });
+}   
   
-      fetch(`${apiUrl}/${search.apiID}`, settings)
-        .then(response => response.json())
-        .then(data => {
-          console.log(data);
+// Function to check if an object has changed
+function hasObjectChanged(object, referenceArray) {
+    // Find the corresponding object in the reference array
+    const referenceObject = referenceArray.find(item => item.id === object.id);
+  
+    // Implement your logic to compare the object with the reference object
+    // Return true if changed, false otherwise
+    // For simplicity, this example assumes a field named 'lastModified' to check for changes
+    return object.item !== referenceObject.item;
+}
+  
+  // Function to patch an individual object if it has changed
+async function patchObjectIfChanged(object) {
+    try {
+    // Check if the object has changed against the reference array
+    if (hasObjectChanged(object, compare)) {
+        const response = await fetch(`${apiUrl}/${object.apiID}`, {
+        method: 'PATCH',
+        headers: {
+            'Content-Type': 'application/json',
+            "x-apikey": apiKey,
+            "Cache-Control": "no-cache"
+        },
+        body: JSON.stringify({item: object.item}),
         });
+
+        const result = await response.json();
+        console.log('Object patched successfully:', result);
+        return result;
+    } else {
+        console.log('Object has not changed. Skipped patching.');
+        return null; // Return null to indicate that the object was not patched
+    }
+    } catch (error) {
+    console.error('Error patching object:', error);
+    throw error;
+    }
+}
+  
+  // Function to patch only changed objects in the array
+async function patchChangedObjects(array) {
+    try {
+    const patchPromises = array.map(patchObjectIfChanged);
+    const results = await Promise.all(patchPromises);
+    
+    // Filter out null results (objects that were not patched)
+    const patchedObjects = results.filter(result => result !== null);
+
+    console.log('All changed objects patched successfully:', patchedObjects);
+    return patchedObjects;
+    } catch (error) {
+    console.error('Error patching changed objects:', error);
+    throw error;
+    }
 }
