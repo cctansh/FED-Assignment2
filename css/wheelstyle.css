@@ -1,31 +1,29 @@
-body {
+main { /* centers wheel and text */
   display: flex;
+  flex-wrap: wrap; /* text/spin button goes below wheel in mobile view */ 
   justify-content: center;
   align-items: center;
-  height: 100vh;
-  gap: 64px;
+  height: 100vh; /* ensures centers vertically */
+  gap: 2em; /* space between wheel and text */
 }
-canvas {
+
+canvas { /* adds grey border around wheel */
   border: 5px solid #ccc;
   border-radius: 50%;
 }
+
 #spin-button {
   padding: 10px 20px;
   font-size: 22px;
-  border-radius: 0;
+  border-radius: 0; /* square button */
 }
+
 .spin-text {
   text-align: center;
 }
+
 p {
   font-size: 20px;
-}
-main {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  gap: 2em;
 }
 
 .modal {
@@ -48,7 +46,7 @@ main {
   margin: 10% auto; /* 10% from the top and centered */
   padding: 20px;
   border: 1px solid #888;
-  width: 80%; /* Could be more or less, depending on screen size */
+  width: 80%;
   box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
   animation: slideIn 0.5s; /* Slide in animation */
 }
@@ -56,7 +54,7 @@ main {
 /* Close button styling */
 .close-button {
   color: #aaa;
-  position: absolute;
+  position: absolute; /* relative to modal content */
   top: 0;
   right: 20px;
   font-size: 28px;

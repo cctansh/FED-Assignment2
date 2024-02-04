@@ -1,8 +1,19 @@
+/* note about local storage:
+item data is taken from API
+item data may be changed by user on the page through increment/decrement function
+hence, it is necessary to continually update/store this data somewhere that can be maintained
+even if user refreshes the page.
+can either be done by constantly sending patch requests to API, or by storing in local storage
+to lessen API calls / avoid rate limit, local storage is used
+API data is then only updated when entering/leaving page. 
+note that actual scenario only local storage would be used to store cart item data (no API)
+however as in this assignment, each html file is considered a different domain, local storage
+cannot be used for this */
+
 const apiKey = "65b665611aac406df1278a6f";
 const basketApiUrl = 'https://products-aa44.restdb.io/rest/basket';
 const quizApiUrl = 'https://products-aa44.restdb.io/rest/quiz';
 const quizObjId = '65bdec96649d301400000044';
-
 
 // variables for loading div
 let loading = document.getElementById("loading");
@@ -15,10 +26,10 @@ let foot = document.getElementById('foot')
 var total = document.getElementById('total');
 var bill = 0;
 
-// api use (getting cart items)
+// stores cart items data from API
 var cartArray = JSON.parse(localStorage.getItem("data")) || [];
 // to be used to store og item data
-// used to check whether object in cartArray has been chanegd and needs to be patched to API
+// used to check whether object in cartArray has been changed and needs to be patched to API
 var compare = JSON.parse(localStorage.getItem("compare")) || []; 
 // used to get discount from quiz
 var discountRate = localStorage.getItem("discount") || 1; 
@@ -65,8 +76,9 @@ if (cartArray.length === 0) {
             localStorage.setItem("data",JSON.stringify(cartArray))
             localStorage.setItem("compare",JSON.stringify(compare))
 
+            // get discount rate
             getDiscount()
-            .then(() => {
+            .then(() => { // after getting discount rate then
                 // fills cart are with items
                 generateCartItems();
 
@@ -91,6 +103,7 @@ else {
     generateCartItems();
 }
 
+// gets discount from quiz API
 async function getDiscount() {
     try {
         const response = await fetch(`${quizApiUrl}/${quizObjId}`, {
@@ -102,9 +115,9 @@ async function getDiscount() {
             }
         });
         const result = await response.json();
-        discountRate = 1 - (result.discount / 100);
-        localStorage.setItem("discount",discountRate)
-        console.log(discountRate);
+        discountRate = 1 - (result.discount / 100); /* sets number to multiply total by, eg returns 0.95 */
+        localStorage.setItem("discount",discountRate) // local storage
+        console.log(discountRate); // for testing
     } catch (error) {
         console.error('Error:', error);
         throw error;
@@ -212,6 +225,7 @@ function decrement(id) {
     localStorage.setItem("data",JSON.stringify(cartArray))
 };
 
+// deletes item from cart
 function trashItem(id) {
     let selectedItem = id;
     
@@ -263,7 +277,7 @@ function checkout() {
     }
 }
 
-// updates API, done whenever leaving cart page
+// updates API, done whenever leaving cart page using navbar
 function patchAPI(URL) {
     // clearing local storage
     // next time user goes to cart page, it loads updated data from API
@@ -345,6 +359,7 @@ async function patchChangedObjects(array) {
     }
 }
 
+// resets quiz discount in API
 async function patchDiscount() {
     try {
         const response = await fetch(`${quizApiUrl}/${quizObjId}`, {
@@ -354,7 +369,7 @@ async function patchDiscount() {
             "x-apikey": apiKey,
             "Cache-Control": "no-cache"
         },
-        body: JSON.stringify({discount: 0}),
+        body: JSON.stringify({discount: 0}), // set discount to 0
         });
 
         const result = await response.json();
@@ -366,7 +381,12 @@ async function patchDiscount() {
     }
 }
 
+// for checkout button
+//similar to patchAPI but with added patchDiscount()
 function checkoutLink(URL) {
+    // clearing local storage
+    // next time user goes to cart page, it loads updated data from API
+    // as user is checking out, all items and discount rate were updated to 0
     localStorage.clear();
 
     // while API is patching, show loading screen
@@ -378,7 +398,7 @@ function checkoutLink(URL) {
 		</div>
 	</div>
 	`
-
+    // patches discount rate = 0
     patchDiscount()
     .then(() => {
         // patches any products that have changed data

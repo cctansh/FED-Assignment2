@@ -4,9 +4,9 @@ document.addEventListener('DOMContentLoaded', function() {
   const spinButton = document.getElementById('spin-button');
   const prizeModal = document.getElementById('prizeModal');
   const prizeText = document.getElementById('prizeText');
-  const closeButton = document.querySelector('.close-button'); // Ensure this selector matches your HTML
+  const closeButton = document.querySelector('.close-button'); 
 
-  const segments = [
+  const segments = [ // changes based on wheel price value
       { label: '$20 Gift Card', color: '#f5cfc4' },
       { label: 'Free Shipping (3)', color: '#f5dec4' },
       { label: '$25 Gift Card', color: '#f7f3c8' },
@@ -110,28 +110,32 @@ spinButton.addEventListener('click', function() {
           prizeModal.style.display = "block";
       }
   }
-    
-
       requestAnimationFrame(rotateWheel);
   });
 
+  // when clicking close button
   closeButton.addEventListener('click', function() {
-      prizeModal.style.display = "none";
+      prizeModal.style.display = "none"; // close prize display
+      // navigate to leaderboardform, along with query parameters
       window.location.href = "leaderboardform.html" + window.location.search;
   });
 
+  // clicking anywhere outside the prize message display
   window.addEventListener('click', function(event) {
       if (event.target == prizeModal) {
-          prizeModal.style.display = "none";
+          prizeModal.style.display = "none"; // close display
+          // navigate to leaderboardform, along with query parameters
           window.location.href = "leaderboardform.html" + window.location.search;
       }
   });
 
+  // get the total bill value from url query params
   var urlParams = new URLSearchParams(window.location.search);
   var bill = urlParams.get('bill');
+  // modify title of the wheel text to show bill
   let title = document.getElementById("title");
   title.innerHTML = `Thank you for spending $${bill}!`;
+  // display wheel
   drawWheel();
   drawArrow();
-  
 });

@@ -12,37 +12,39 @@
     <link href="css/style.css" rel="stylesheet">
 </head>
 <body>
+    <!-- page that is shown when directed -->
     <div id="cover-page" class="text-center">
         <h1>REGISTER FOR OUR LEADERBOARD?</h1>
         <p>Register for our big spenders leaderboard!<br />
         Each month, the top three spenders are awarded with attractive prizes. <br />
         Don't miss out!</p>
         <p class="notice">By registering, you will be signed up for our monthly newsletter.</p>
+        <!-- register/sign in button -->
         <button type="button" class="register-btn btn btn-dark" onclick="goToForm()">REGISTER OR SIGN IN</button>
+        <!-- skip button, directs straight to home page -->
         <a href="index.html"><button type="button" class="skip-btn btn btn-outline-dark">SKIP</button></a> 
     </div>
 
-    <div id="register-form" class="hidden">
+    <!-- when clicking register/sign in, display changes to this page-->
+    <div id="form-page" class="hidden">
         <div class="row">
+
+            <!-- register form -->
             <div class="col-12 col-md-6 vline">
                 <form id="signup-form">
                     <h3>REGISTER</h3>
-    
-    
                     <div class="inputs">
-                        <div class="dn-area">
+                        <div class="dn-area"> <!-- dn = display name -->
                             <label for="dn" class="form-label">Display Name:</label>
                             <input type="text" class="form-control" id="dn" name="dn" required aria-describedby="dnHelpBlock">    
                             <div id="dnHelpBlock" class="form-text">
                                 You may not change your display name after registration! Please choose wisely.
                             </div>
                         </div>
-    
                         <div class="email-area">
                             <label for="email" class="form-label">Email address:</label>
                             <input type="email" class="form-control" id="email" name="email" placeholder="name@example.com" required>    
                         </div>
-                        
                         <div class="password-area">
                             <label for="password" class="form-label">Password:</label>
                             <input type="password" class="form-control" id="password" name="password" required aria-describedby="passwordHelpBlock">
@@ -51,37 +53,31 @@
                             </div>
                         </div>
                     </div>
-                    
                     <button type="button" class="btn btn-dark" onclick="validateSignUp()">REGISTER</button>
-    
                     <div id="signup-error-message" class="error"></div>
                 </form>
             </div>
 
+            <!-- sign in form -->
             <div class="col-12 col-md-6">
                 <form id="login-form">
                     <h3>ALREADY REGISTERED?</h3>
-    
                     <div class="inputs">
                         <div class="email-area">
                             <label for="login-email" class="form-label">Email address:</label>
                             <input type="email" class="form-control" id='login-email' name="login-email" placeholder="name@example.com" required>    
                         </div>
-                        
                         <div class="password-area">
                             <label for="login-password" class="form-label">Password:</label>
                             <input type="password" class="form-control" id="login-password" name="login-password" required>
                         </div>
                     </div>
-                    
                     <button type="button" class="btn btn-dark" onclick="validateLogin()">SIGN IN</button>
-    
                     <div id="login-error-message" class="error"></div>
                 </form>
             </div>
         </div>
     </div>
-
 
   <script src="js/bootstrap/bootstrap.bundle.js"></script>
   <script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script>

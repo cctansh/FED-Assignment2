@@ -1,15 +1,15 @@
 html,body{
     height:100%;
     font-family: 'Oswald', sans-serif;
-    font-weight: 300;
+    font-weight: 300; /* sets default font-weight that can be overridden */
 }
 
-.pad-nav {
+.pad-nav { /* ensures content is shown below the nav bar */
     padding-top: 80px;
     min-height: 100vh;
 }
 
-.page-title {
+.page-title { /* page headers */
     padding-bottom: 8px;
     border-bottom: 2px solid rgb(169, 169, 169);
 }
@@ -19,181 +19,181 @@ h1 {
     font-size: 44px;
 }
 
-a{
+a{ /* all links should have pointer cursor */
     cursor: pointer;
 }
 
-.loading {
+.loading { /* loading div */
     top:0;
     position: absolute;
-    z-index: 999;
-    height: 100vh;
+    z-index: 999; /* set above all elements */
+    height: 100vh; /* covers full screen */
     width: 100vh;
     background-color: white;
 }
 
-.hidden {
-    display: none !important;
+.hidden { /* applied for filter / showing loading screen purposes */
+    display: none !important; /* hides content */
     height: 0;
 }
 
-.animation-center{  
-    margin-top: -24px;
-    z-index: 1000;
-    display: flex;
+.animation-center{ /* loading icon (lottie) */ 
+    z-index: 1000; /* set above loading div */
+    display: flex; /* from here centers the icon in page */
     flex-direction: column;
     justify-content: center;
     align-items: center;
     height: 100vh;
+    margin-top: -24px; /* accounts for animation being slightly off center */
 }
 
+
 /* footer */
+
 footer {
     padding: 32px;
     background-color: #333;
     color:white;
     display: flex;
-    flex-direction: row;
-    justify-content: space-between;
+    flex-direction: row; /* horizontally aligned */
+    justify-content: space-between; /* puts company-info and socmed divs on opposite ends */
 }
 
-footer div {
+footer div { /* styles both company-info and socmed */
     display: flex;
-    flex-direction: row;
+    flex-direction: row; /* horizontally aligned */
     justify-content: center;
     align-items: center;
-    gap: 16px;
+    gap: 16px; /* spacing between inside div elements */
 }
 
-footer .brand {
-    width: 30px;
+.socmed img { /* socmed icons */
+    width: auto; /* auto aspect ratio according to height */
     height: 30px;
 }
 
-.socmed img {
-    width: auto;
-    height: 30px;
-}
-
-.brand {
+.brand { /* logo image dimensions */
     width: 24px;
     height: 24px;
 }
 
+
 /* nav bar */
 
-.nav-link {
+.nav-link { /* styles the page link text */
     font-size: 18px;
     font-weight: 400;
 }
 
-.nav-item .active {
-    cursor: default;
+.nav-item .active { /* styles current page link (eg on home page, styles HOME link text) */
+    cursor: default; /* indicates non clickable */
 }
+
 
 /* index page */
 
-.carousel,.carousel-item,.carousel-inner,
-.active{
+.carousel,
+.carousel-item,
+.carousel-inner,
+.active{ /* ensures fills page */
     height:100%;
 }
 
 .carousel-caption {
-    display: block !important;
+    display: block !important; /* shows no matter the screen size */
 }
 
 .carousel-item {
-    background-size: cover;
+    background-size: cover; /* so image will always be full screen while maintaining aspect ratio */
 }
 
-.carousel-item-bg {
-    background-color:rgba(90, 85, 83, 0.7);
+.carousel-item-bg { /* carousel caption bg */
+    background-color:rgba(90, 85, 83, 0.7); /* translucent grey bg */
     width: auto;
-    padding: 16px;
+    padding: 16px; /* pads bg around text */
 }
 
-.carousel-item-bg h4 {
+.carousel-item-bg h4 { /* styles caption header */
     font-size: 28px;
     font-weight: 500;
 }
 
-.carousel-item-bg p {
+.carousel-item-bg p { /* styles caption details */
     font-size: 18px;
 }
 
-.go-btn {
+.go-btn { /* products page button */
     width: 124px;
     border-radius: 0;
 }
 
-.leaderboard-btn {
+.leaderboard-btn { /* leaderboard page button */
     border-radius: 0;
 }
 
-.bg1 {
+.bg1 { /* home product page img bg */
     background: url(../img/bg.png) no-repeat center center fixed; 
 }
-.bg2 {
+.bg2 { /* home quiz page img bg */
     background: url(../img/bg2.png) no-repeat center center fixed; 
 }
-.bg3 {
+.bg3 { /* home wheel page img bg */
     background: url(../img/bg3.gif) no-repeat center center fixed; 
 }
-.bg4 {
+.bg4 { /* home leaderboard page img bg */
     background: url(../img/bg4.png) no-repeat center center fixed; 
 }
 
-.carousel .carousel-indicators button {
-    background-color: #fff;
+.carousel .carousel-indicators button { /* styles bottom buttons indicating which page user is on */
     background-color: rgba(70, 70, 70, 0.65);
 }
   
-.carousel .carousel-indicators .active {
+.carousel .carousel-indicators .active { /* current page user is on has darker button colour */
     background-color: #333;
 }
+
 
 /* product page */
 
 #product-content {
-    margin-top: 16px;
+    margin-top: 16px; /* space between products and page header */
 }
 
 /* filters */
-label {
+label { /* filter labels */
     font-size: 20px;
 }
 
-.filters {
-    padding-top: 8px;
+.filters { /* groups all 3 filters */
+    padding-top: 8px; /* spacing page header */
     display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
-    gap: 16px;
+    flex-direction: row; /* displays horizontally */
+    flex-wrap: wrap; /* on smaller screens, wraps */
+    gap: 16px; /* gap between 3 filters */
     align-items: center;
 }
 
 #cat {
-    width: 130px;
+    width: 130px; /* category selector button width */
 }
 
 #sort {
-    width:150px;
+    width:150px; /* sort selector button width */
 }
 
 #currency {
-    width: 80px;
+    width: 80px;  /* currency selector button width */
 }
 
-/* product/cart items */
-
-.item {
+/* product and cart items */
+.item {  /* spaces between the rows of items */
     padding-bottom: 8px;
 }
 
-.details {
-    width: 232px;
+.details {  /* item text */
+    width: 232px; /* so text doesnt overflow img */
     display: flex;
-    flex-direction: column;
+    flex-direction: column; /* text arranged vertically */
     align-items: center;
 }
 
@@ -213,7 +213,7 @@ label {
     font-size: 26px;
 }
 
-.quantity-buttons {
+.quantity-buttons { /* eg (- 1 +)  */
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -221,105 +221,104 @@ label {
     font-size: 20px;
 }
 
-i{
-    cursor: pointer;
-    transition: all .2s ease;
+i{ /* quantity and trash buttons */
+    cursor: pointer; /* clickable */
+    transition: all .2s ease; /* animation for hovering */
     color: gray;
 }
 
-i:hover {
+i:hover { /* becomes bigger when hovering */
     font-size: 28px;
-    margin-top: -6px;
+    margin-top: -6px; /* centers */
 }
 
 /* cart specific */
-.cart-items {
+.cart-items { /* styles cart item area */
     padding: 12px;
     width: 100%;
     display: flex;
     flex-direction: row;
-    flex-wrap: wrap;
-    justify-content: space-evenly;
-    row-gap: 12px;
+    flex-wrap: wrap; /* wrap when overflows */
+    justify-content: space-evenly; /* centers all items with space between */
+    row-gap: 12px; /* vertical gap between rows of items */
 }
 
 .cart-item {
     position: relative;
 }
 
-.trash {
-    position: absolute;
+.trash { /* trash item button */
+    position: absolute; /* relative to cart item */
     top: 8px;
     right: 12px;
 }
 
 /* animations */
-.quantity{
+.quantity{ /* quantity text */
     transition: opacity .5s ease;
 }
   
-.fade{
-    opacity: 0;
+.fade{ /* animation when updating quantity text */
+    opacity: 0; /* fades out and in */
 }
 
-.dark{
-    color: black !important;
+.dark{ /* animation when clicking on + or - buttons */
+    color: black !important; /* darkens when clicked */
 }
+
 
 /* cart page */
 
-.cart-area {
+.cart-area { /* includes cart items and checkout div */
     width: 100%;
-    min-height: 425px;
+    min-height: 425px; /* fills page even when cart is empty */
     height: auto;
     border: 2px solid grey;
     position: relative;
-    padding-bottom: 68px;
+    padding-bottom: 68px; /* cart items are shown above checkout area */
 }
 
-.cart-title {
+.cart-title { /* cart heading and clear cart button */
     display: flex;
-    flex-direction: row;
+    flex-direction: row; /* horizontally */
     align-items: center;
-    justify-content: space-between;
-    padding-bottom: 4px;
+    justify-content: space-between; /* on opposite ends */
+    padding-bottom: 4px; /* space between the heading and cart area */
 }
 
-.clear-cart {
+.clear-cart { /* clear cart button */
     font-size: 20px;
     height: 48px;
 }
 
-.empty {
-    width: 100%;
-    height: 100%;
+.empty { /* styles empty cart message */
+    width: 100%; /* centers horizontally */
     display: flex;
-    justify-content: center;
     align-items: center;
     flex-direction: column;
-    padding-top: 120px;
-    gap:16px;
+    padding-top: 120px; /* centers vertically */
+    gap:16px; /* gap between text and go to products page button */
 }
 
-.empty h1 {
+.empty h1 { /* empty message text */
     font-weight: 500;
 }
 
 /* checkout */
 .checkout-area {
-    width: 100%;
+    width: 100%; /* width of cart area */
     height: 68px;
     border-top: 1.4px solid grey;
     display: flex;
-    flex-direction: row;
-    justify-content: end;
-    align-items: center;
-    gap: 3.5%;
-    position: absolute;
-    bottom: 0;
+    flex-direction: row; 
+    justify-content: end; /* aligns right */
+    align-items: center; /* centers elements horizontally */
+    gap: 3.5%; /* gap between total text and checkout button */
+    position: absolute; /* relative to cart area */
+    bottom: 0; /* at bottom of cart area */
 }
 
-.total {
+.total { /* total bill text */
     font-weight: bold;
     font-size: 24px;
 }
@@ -327,80 +326,81 @@ i:hover {
     padding-top: 6px;
     padding-left: 24px;
     padding-right: 24px;
-    height: 100%;
-    border-radius: 0;
+    height: 100%; /* height of checkout area */
+    border-radius: 0; /* rectangle button */
     font-size: 24px;
     font-weight: bold;
 }
 
 @media (max-width: 768px) {
     .details {
-        width: 100%;
+        width: 100%; /* items will show one per row, allow text to overflow img width */
     }
 }
 
-/* form */
 
-form {
-    width: 100%;
+/* leaderboard form */
+
+form { /* both register and sign in forms */
+    width: 100%; /* 100% of their bootstrap grid col */
     display: flex;
     flex-direction: column;
-    align-items: center;
-    row-gap: 16px;
+    align-items: center; /* centers heading and button */
+    row-gap: 16px; /* vertical gaps between heading, input fields, and buttons */
 }
 
-.inputs {
+.inputs { /* all user input fields */
     display: flex;
     flex-direction: column;
-    row-gap: 16px;
-    width: 80%;
+    row-gap: 16px; /* gap between each input field */
+    width: 80%; /* input text area width */
 }
 
-#cover-page {
+#cover-page { /* initial page shown when loading in */
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 100vh;
+    height: 100vh; /* fills whole screen */
 }
 
 #cover-page p {
     font-size: 20px;
 }
 
-#cover-page .notice {
-    font-size: 18px;
+#cover-page .notice { /* newsletter notice */
+    font-size: 18px; 
 }
 
 .register-btn,
 .skip-btn {
     width: 12em;
     border-radius: 0;
-    margin: 8px;
+    margin: 8px; /* for spacing between buttons */
     font-size: 18px;
 }
 
-#register-form {
-    height: 100vh;
+#form-page { /* page containing forms */
+    height: 100vh; /* fills whole screen */
     display: flex;
-    align-items: center;
-    width: 100%;
+    align-items: center; /* center vertically */
+    width: 100%; /* fills whole screen */
 }
 
-#register-form .row {
-    width: 100%;
+#form-page .row {
+    width: 100%; /* contains the grid cols, ensures takes up whole screen */
 }
 
-.vline {
+.vline { /* line separating register and sign in forms */
     border-right: 2px solid rgb(181, 181, 181);
 }
 
 @media (max-width: 768px) { 
-    .vline {
+    .vline { /* in tablet view when forms are arranged vertically, do not display line */
         border-right: 0;
     }
 
-    #register-form .row .col-12 {
+    #form-page .row .col-12 { /* when forms arranged vertically, add a gap between them */
         padding-top: 16px;
     }
  }
@@ -408,41 +408,40 @@ form {
 
 /* leaderboard */
 
-.flex-body {
+.flex-body { /* so elements are displayed in column */
     display: flex;
     flex-direction: column;
 }
 
 .page-title,
-.board {
-    flex: 0 1 auto;
+.board { 
+    flex: 0 1 auto; /* flex grow 0 */
 }
 
-.animation {
+.animation { /* animation should fill remaining empty space */
     flex: 1 1 auto;
-    display: flex;
-    justify-content: center;
+    display: flex; 
+    justify-content: center; /* and be centered */
     align-items: center;
 }
 
-
-.board-head {
+.board-head { /* leaderboard top row */
     font-weight: 500 !important;
     font-size: 22px !important;
 }
 
-.board-row {
+.board-row { /* leaderboard entry row */
     font-size: 18px;
-    width: 85%;
+    width: 85%; /* of main div */
     display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap;
-    justify-content: center;
-    margin: auto;
+    flex-direction: row; /* show horizontally */
+    flex-wrap: nowrap; /* do not wrap */
+    justify-content: center; /* centered */
+    margin: auto; /* centered */
     text-align: left;
-    padding-left: 16px;
-    gap: 8px;
-    border-bottom: 1px solid rgb(181, 181, 181);
+    padding-left: 16px; 
+    gap: 8px; /* gap between rank name and spent */
+    border-bottom: 1px solid rgb(181, 181, 181); /* dividers */
 }
 
 .rank {
@@ -461,7 +460,7 @@ form {
 
 .row1,
 .row2,
-.row3 {
-    font-weight: 400 !important;
-    background-color: rgb(255, 247, 230);
+.row3 { /* styles top three spenders / prize winners */
+    font-weight: 400 !important; /* bolds their details */
+    background-color: rgb(255, 247, 230); /* light golden bg to emphasize */
 }

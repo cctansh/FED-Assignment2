@@ -1,8 +1,11 @@
 const apiKey = "65b665611aac406df1278a6f";
 const apiUrl = 'https://products-aa44.restdb.io/rest/leaderboard';
 
+// get the total bill value from url query params
 var urlParams = new URLSearchParams(window.location.search);
 var bill = urlParams.get('bill');
+
+// DOM elements
 var signUpMsg = document.getElementById('signup-error-message');
 var logInMsg = document.getElementById('login-error-message');
 
@@ -141,7 +144,7 @@ function validateLogin() {
 
 function goToForm() {
     let cover = document.getElementById("cover-page");
-    let regform = document.getElementById("register-form");
+    let regform = document.getElementById("form-page");
 
     cover.classList.add('hidden');
     regform.classList.remove('hidden');
