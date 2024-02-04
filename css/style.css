@@ -131,16 +131,16 @@ footer .brand {
 }
 
 .bg1 {
-    background: url(img/bg.png) no-repeat center center fixed; 
+    background: url(../img/bg.png) no-repeat center center fixed; 
 }
 .bg2 {
-    background: url(img/bg2.png) no-repeat center center fixed; 
+    background: url(../img/bg2.png) no-repeat center center fixed; 
 }
 .bg3 {
-    background: url(img/bg3.gif) no-repeat center center fixed; 
+    background: url(../img/bg3.gif) no-repeat center center fixed; 
 }
 .bg4 {
-    background: url(img/bg4.png) no-repeat center center fixed; 
+    background: url(../img/bg4.png) no-repeat center center fixed; 
 }
 
 .carousel .carousel-indicators button {

@@ -17,7 +17,7 @@
 }
 
 body {
-    background: url(img/quizbg.png) no-repeat center center fixed; 
+    background: url(../img/quizbg.png) no-repeat center center fixed; 
 }
 
 .app {
