@@ -123,11 +123,7 @@ footer div { /* styles both company-info and socmed */
 }
 
 .go-btn { /* products page button */
-    width: 124px;
-    border-radius: 0;
-}
-
-.leaderboard-btn { /* leaderboard page button */
+    min-width: 124px;
     border-radius: 0;
 }
 
