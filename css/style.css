@@ -187,6 +187,9 @@ label { /* filter labels */
 
 /* product and cart items */
 .item {  /* spaces between the rows of items */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     padding-bottom: 8px;
 }
 
