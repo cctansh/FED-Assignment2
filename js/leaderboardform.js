@@ -31,7 +31,6 @@ fetch(apiUrl, {
                 spent: response[i].spent,
             })
         }
-        console.log(usersData);
 })
     .catch(error => {
       console.error('Error:', error);
@@ -96,9 +95,6 @@ function validateSignUp() {
         })
     .then(response => response.json())
     .then(data => {
-        console.log(data);
-        console.log('User signed up successfully. User data:', userData);
-        console.log(usersData);
     });
 }
 
@@ -111,13 +107,9 @@ function validateLogin() {
     usersData.forEach(user => {
         if (user.email === loginEmail && user.password === loginPassword) {
             userMatch = true;
-            console.log(user.spent);
-            console.log(bill);
 
             user.spent = (parseFloat(user.spent) + parseFloat(bill)).toFixed(2);
 
-            console.log(user.spent);
-            
             delay('leaderboard.html');
             
             fetch(`${apiUrl}/${user.apiID}`, {
@@ -131,8 +123,6 @@ function validateLogin() {
                 })
             .then(response => response.json())
             .then(data => {
-                console.log(data);
-                console.log('User signed up successfully. User data:', user);
             })
         }
     })

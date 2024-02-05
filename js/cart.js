@@ -117,7 +117,6 @@ async function getDiscount() {
         const result = await response.json();
         discountRate = 1 - (result.discount / 100); /* sets number to multiply total by, eg returns 0.95 */
         localStorage.setItem("discount",discountRate) // local storage
-        console.log(discountRate); // for testing
     } catch (error) {
         console.error('Error:', error);
         throw error;
@@ -329,10 +328,8 @@ async function patchObjectIfChanged(object) {
             });
 
             const result = await response.json();
-            console.log('Object patched successfully:', result);
             return result;
         } else { // if unchanged, skip patching
-            console.log('Object has not changed. Skipped patching.');
             return null; 
         }
     } catch (error) {
@@ -351,7 +348,6 @@ async function patchChangedObjects(array) {
         // filter out objects that were not patched
         const patchedObjects = results.filter(result => result !== null);
 
-        console.log('All changed objects patched successfully:', patchedObjects);
         return patchedObjects;
     } catch (error) {
         console.error('Error patching changed objects:', error);
@@ -373,7 +369,6 @@ async function patchDiscount() {
         });
 
         const result = await response.json();
-        console.log('Object patched successfully:', result);
         return result;
     } catch (error) {
         console.error('Error patching object:', error);

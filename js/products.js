@@ -116,7 +116,6 @@ function getCurrencyArray() {
             });
             // store array in local storage
             localStorage.setItem("currency",JSON.stringify(currency))
-            console.log(currency);
     })
         .catch(error => {
           console.error('Error:', error);
@@ -387,10 +386,8 @@ async function patchObjectIfChanged(object) {
             body: JSON.stringify({item: object.item}),
             });
             const result = await response.json();
-            console.log('Object patched successfully:', result);
             return result;
         } else { // if unchanged, skip patching
-            console.log('Object has not changed. Skipped patching.');
             return null; 
     }
     } catch (error) {
@@ -409,7 +406,6 @@ async function patchChangedObjects(array) {
         // filter out objects that were not patched
         const patchedObjects = results.filter(result => result !== null);
 
-        console.log('All changed objects patched successfully:', patchedObjects);
         return patchedObjects;
     } catch (error) {
         console.error('Error patching changed objects:', error);

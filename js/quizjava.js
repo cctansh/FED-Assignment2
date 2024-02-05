@@ -207,7 +207,6 @@ async function patchAPI() {
             });
 
             const result = await response.json();
-            console.log('Object patched successfully:', result);
             return result;
     } catch (error) {
         console.error('Error patching object:', error);

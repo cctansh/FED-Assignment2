@@ -44,7 +44,6 @@ fetch(apiUrl, {
         }
         // sort the users from most spent to least spent
         usersData.sort((a,b) => b.spent - a.spent);
-        console.log(usersData);
 
         printLeaderboard();
 
