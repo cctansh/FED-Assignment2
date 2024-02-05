@@ -94,16 +94,14 @@ Each piece of external code has been carefully selected and integrated to ensure
   - Spin the wheel and verify that the gift corresponds to the spending bracket.
 - **Quiz:**
   - Participate in the product knowledge quiz, ensuring accurate scoring and appropriate application of rewards based on quiz performance.
-
+- **Cart:**
+  - Add to cart and check out
 
 ### Responsiveness and Browser Compatibility
 
 - Tested on various browsers including Chrome, Firefox, and Safari.
 - Responsive design was checked on multiple devices and screen sizes to ensure compatibility.
 
-### Known Bugs
-
-- On certain mobile devices, the leaderboard table overflows the viewport width.
 
 ## Credits
 
