@@ -27,7 +27,7 @@ To ensure the website meets these needs, we followed a user-centered design proc
 You can find the wireframes in the wireframes folder in the repository. These were integral in visualizing the customer journey and iterating on the design for optimal user experience.
 
 ## Features
-
+- **Responsive site** - Can be used on most screen sizes without issue.
 - **Product Catalogue** - Allows users to browse an extensive collection of jewelry and select items that appeal to them. Includes category filters, sorting by price, and an option to view the prices in SGD, MYR or IDR, the countries that we provide services for.
 - **Gift Wheel** - Users who spend over a certain amount can spin the wheel to win a free gift, adding an element of surprise and delight.
 - **Quiz** - Engages users with questions about our products, prices, return policy, and company information, reinforcing their knowledge and our brand's transparency.
@@ -35,6 +35,8 @@ You can find the wireframes in the wireframes folder in the repository. These we
 
 
 ## Technologies Used
+
+- **HTML**: Provides the foundational code of the site.
 
 - **JavaScript**: Empowers the interactivity of the web application by handling events, manipulating the DOM, and managing asynchronous API calls.
 
