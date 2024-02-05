@@ -22,7 +22,7 @@ To ensure the website meets these needs, we followed a user-centered design proc
 
 ### Wireframes and Mockups
 
-You can find the wireframes in the . These were integral in visualizing the customer journey and iterating on the design for optimal user experience.
+You can find the wireframes in the wireframes folder in the repository. These were integral in visualizing the customer journey and iterating on the design for optimal user experience.
 
 ## Features
 
