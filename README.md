@@ -7,6 +7,8 @@ Star Jewelry Inc. brings the allure and beauty of fine jewelry directly to the c
 
 Our platform is designed not just to sell jewelry but to create a community of jewelry lovers who appreciate the excitement of discovery and the joy of rewards. Through innovative features like our monthly leaderboard, a quiz to find out more about us and our products, and a reward wheel for different spending levels, we ensure a delightful and engaging experience for every customer.
 
+(Pages site)[https://cctansh.github.io/FED-Assignment2/]
+
 ## Design Process
 
 This website is for jewelry enthusiasts who are looking for a personalized shopping experience that matches their unique style and preferences. They want to discover and purchase jewelry with ease, get rewarded for their loyalty, and feel a sense of community.
@@ -111,6 +113,12 @@ This project incorporates code and libraries from external sources to enhance fu
 
 ## Credits
 
+### Code
+- We referenced tutorials from [freeCodeCamp.org](https://www.youtube.com/c/Freecodecamp).
+
+### Fonts
+- We took custom fonts from (Google Font)[https://fonts.google.com/]
+
 ### Media
 
 - The product photos used in this site were obtained from https://pohheng.com.sg/
@@ -120,5 +128,4 @@ This project incorporates code and libraries from external sources to enhance fu
 ### Acknowledgements
 
 - We drew inspiration from various luxury e-commerce platforms to create an elegant and user-friendly interface.
-- We also referenced tutorials from various sources, such as [freeCodeCamp.org](https://www.youtube.com/c/Freecodecamp).
 
