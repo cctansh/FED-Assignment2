@@ -113,7 +113,7 @@ This project incorporates code and libraries from external sources to enhance fu
 
 ### Media
 
-- The product photos used in this site were obtained from (https://pohheng.com.sg/)
+- The product photos used in this site were obtained from https://pohheng.com.sg/
 - The iPad Pro photos were obtained from [Apple's official site](https://www.apple.com/sg/ipad-pro/).
 - Social media icons were taken from [IconFinder](https://www.iconfinder.com/).
 
