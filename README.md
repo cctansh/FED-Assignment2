@@ -7,7 +7,7 @@ Star Jewelry Inc. brings the allure and beauty of fine jewelry directly to the c
 
 Our platform is designed not just to sell jewelry but to create a community of jewelry lovers who appreciate the excitement of discovery and the joy of rewards. Through innovative features like our monthly leaderboard, a quiz to find out more about us and our products, and a reward wheel for different spending levels, we ensure a delightful and engaging experience for every customer.
 
-[Pages](https://cctansh.github.io/FED-Assignment2/)
+[Pages](https://cctansh.github.io/FED-Assignment2/index.html)
 
 [Video on Google Drive](https://drive.google.com/file/d/1fPTnL-diUUpskeu6DMxQZLZqwfykCCFq/view?usp=sharing)
 
