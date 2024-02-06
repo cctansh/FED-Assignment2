@@ -9,6 +9,8 @@ Our platform is designed not just to sell jewelry but to create a community of j
 
 [Pages](https://cctansh.github.io/FED-Assignment2/)
 
+[Video on Google Drive](https://drive.google.com/file/d/1fPTnL-diUUpskeu6DMxQZLZqwfykCCFq/view?usp=sharing)
+
 ## Design Process
 
 This website is for jewelry enthusiasts who are looking for a personalized shopping experience that matches their unique style and preferences. They want to discover and purchase jewelry with ease, get rewarded for their loyalty, and feel a sense of community.
