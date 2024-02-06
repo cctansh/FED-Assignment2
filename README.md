@@ -119,7 +119,7 @@ This project incorporates code and libraries from external sources to enhance fu
 - We referenced tutorials from [freeCodeCamp.org](https://www.youtube.com/c/Freecodecamp).
 
 ### Fonts
-- We took custom fonts from (Google Font)[https://fonts.google.com/]
+- We took custom fonts from [Google Font](https://fonts.google.com/)
 
 ### Media
 
