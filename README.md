@@ -127,12 +127,12 @@ This project incorporates code and libraries from external sources to enhance fu
 - The iPad Pro photos were obtained from [Apple's official site](https://www.apple.com/sg/ipad-pro/).
 - Social media icons were taken from [IconFinder](https://www.iconfinder.com/).
 
+### Acknowledgements
+
+- We drew inspiration from various luxury e-commerce platforms to create an elegant and user-friendly interface.
+
 
 ## Contributions
 
 Valerie implemented wheel and quiz functions, and wrote the README. All other code was implemented by Chloe.
-
-### Acknowledgements
-
-- We drew inspiration from various luxury e-commerce platforms to create an elegant and user-friendly interface.
 
