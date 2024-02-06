@@ -1,11 +1,14 @@
+// Wait for the DOM to fully load before running the script
 document.addEventListener('DOMContentLoaded', function() {
+  // Get references to the canvas and other DOM elements
   const canvas = document.getElementById('wheelCanvas');
-  const ctx = canvas.getContext('2d');
-  const spinButton = document.getElementById('spin-button');
-  const prizeModal = document.getElementById('prizeModal');
-  const prizeText = document.getElementById('prizeText');
-  const closeButton = document.querySelector('.close-button');
+  const ctx = canvas.getContext('2d');  // Context for drawing
+  const spinButton = document.getElementById('spin-button');  // Button to spin the wheel
+  const prizeModal = document.getElementById('prizeModal');  // Modal to show prize
+  const prizeText = document.getElementById('prizeText');  // Element to display prize text
+  const closeButton = document.querySelector('.close-button');  // Button to close the prize modal
 
+  // Define the segments of the wheel, including label and color
   const segments = [ // changes based on wheel price value
       { label: '$5 Gift Card', color: '#f5cfc4' },
       { label: 'Free Shipping', color: '#f5dec4' },
@@ -14,14 +17,16 @@ document.addEventListener('DOMContentLoaded', function() {
       { label: 'Custom Packaging', color: '#c8e1f7' },
       { label: '5% Discount Code', color: '#dec8f7' }
   ];
-  const numSegments = segments.length;
-  const segmentAngle = (2 * Math.PI) / numSegments;
-  let currentRotation = 0;
-  const radius = canvas.width / 2;
-  let finalRotation;
+  const numSegments = segments.length;  // Total number of segments
+  const segmentAngle = (2 * Math.PI) / numSegments;  // Angle of each segment in radians
+  let currentRotation = 0;  // Initial rotation of the wheel
+  const radius = canvas.width / 2;  // Radius of the wheel
+  let finalRotation;  // Variable to store final rotation after spinning
 
+
+  // Function to draw the wheel
   function drawWheel() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.clearRect(0, 0, canvas.width, canvas.height);  // Clear the canvas
     // Use `finalRotation` if it's defined; otherwise, fall back to `currentRotation`.
     let rotation = typeof finalRotation !== 'undefined' ? finalRotation : currentRotation;
     segments.forEach((segment, index) => {
@@ -45,6 +50,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 }
 
+  // Function to draw an arrow indicating the selected segment
   function drawArrow() {
     ctx.fillStyle = 'black';
     // Calculate the center of the right edge of the wheel
@@ -65,7 +71,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
 
 
-
+// Function to determine the prize based on the final wheel position
 function getPrizeIndex() {
   // Convert the current rotation into a segment index.
   // This assumes the wheel's segments are evenly distributed and the wheel spins clockwise.
@@ -82,7 +88,7 @@ function getPrizeIndex() {
 }
 
 
-
+// Event listener for the spin button
 spinButton.addEventListener('click', function() {
   let spinTime = 0;
   // Resets finalRotation at the start of each spin

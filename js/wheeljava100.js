@@ -1,10 +1,12 @@
+// Wait for the DOM to fully load before running the script
 document.addEventListener('DOMContentLoaded', function() {
+  // Get references to the canvas and other DOM elements
   const canvas = document.getElementById('wheelCanvas');
-  const ctx = canvas.getContext('2d');
-  const spinButton = document.getElementById('spin-button');
-  const prizeModal = document.getElementById('prizeModal');
-  const prizeText = document.getElementById('prizeText');
-  const closeButton = document.querySelector('.close-button'); 
+  const ctx = canvas.getContext('2d');  // Context for drawing
+  const spinButton = document.getElementById('spin-button');  // Button to spin the wheel
+  const prizeModal = document.getElementById('prizeModal');  // Modal to show prize
+  const prizeText = document.getElementById('prizeText');  // Element to display prize text
+  const closeButton = document.querySelector('.close-button');  // Button to close the prize modal
 
   const segments = [ // changes based on wheel price value
       { label: '$10 Gift Card', color: '#f5cfc4' },

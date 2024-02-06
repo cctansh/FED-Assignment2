@@ -1,9 +1,11 @@
+// Define API key, API URL, and object ID for REST API interaction
 const apiKey = "65b665611aac406df1278a6f";
 const apiUrl = 'https://products-aa44.restdb.io/rest/quiz';
 const objId = '65bdec96649d301400000044';
 
 // Array of quiz questions with options and correct answers
 const questions = [
+    // Each object in the array represents a quiz question
     // Q1
     {
         question:  "What is the name of this product?",
@@ -69,7 +71,7 @@ const questions = [
 
 ];
 
-// DOM elements
+// Selection of DOM elements that will be manipulated
 const questionElement = document.getElementById("question");
 const answerButtons = document.getElementById("answer-buttons");
 const nextButton = document.getElementById("next-btn");
@@ -86,8 +88,9 @@ function startQuiz() {
     showQuestion();
 }
 
+// Shows the current question and its answers
 function showQuestion(){
-    resetState();
+    resetState(); // Clear any previous question's state
     let currentQuestion = questions[currentQuestionIndex];
     let questionNo = currentQuestionIndex + 1;
     questionElement.innerHTML = questionNo + ". " + currentQuestion.question;
@@ -144,6 +147,7 @@ function selectAnswer(e){
     nextButton.style.display = "block";
 }
 
+// Displays the final score and calculates a discount
 function showScore(){
     resetState();
     let discount = score; // Assuming 1 point = 1% discount
@@ -159,7 +163,7 @@ function showScore(){
     nextButton.style.display = "block";
 }
 
-
+// Controls the flow when the next button is clicked
 function handleNextButton(){
     currentQuestionIndex++;
     if(currentQuestionIndex < questions.length){ // If questions still remaining
